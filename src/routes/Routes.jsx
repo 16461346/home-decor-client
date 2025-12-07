@@ -1,55 +1,59 @@
-import Home from '../pages/Home/Home'
-import ErrorPage from '../pages/ErrorPage'
-import Login from '../pages/Login/Login'
-import SignUp from '../pages/SignUp/SignUp'
-import PlantDetails from '../pages/PlantDetails/PlantDetails'
-import PrivateRoute from './PrivateRoute'
-import DashboardLayout from '../layouts/DashboardLayout'
-import AddPlant from '../pages/Dashboard/Seller/AddPlant'
-import ManageUsers from '../pages/Dashboard/Admin/ManageUsers'
-import Profile from '../pages/Dashboard/Common/Profile'
-import Statistics from '../pages/Dashboard/Common/Statistics'
-import MainLayout from '../layouts/MainLayout'
-import MyInventory from '../pages/Dashboard/Seller/MyInventory'
-import ManageOrders from '../pages/Dashboard/Seller/ManageOrders'
-import MyOrders from '../pages/Dashboard/Customer/MyOrders'
-import { createBrowserRouter } from 'react-router'
-import Service from '../pages/PublicPages/Service'
-import About from '../pages/PublicPages/About'
-import Contact from '../pages/PublicPages/Contact'
+import Home from "../pages/Home/Home";
+import ErrorPage from "../pages/ErrorPage";
+import Login from "../pages/Login/Login";
+import SignUp from "../pages/SignUp/SignUp";
+import PlantDetails from "../pages/PlantDetails/PlantDetails";
+import PrivateRoute from "./PrivateRoute";
+import DashboardLayout from "../layouts/DashboardLayout";
+import AddPlant from "../pages/Dashboard/Seller/AddPlant";
+import ManageUsers from "../pages/Dashboard/Admin/ManageUsers";
+import Profile from "../pages/Dashboard/Common/Profile";
+import Statistics from "../pages/Dashboard/Common/Statistics";
+import MainLayout from "../layouts/MainLayout";
+import MyInventory from "../pages/Dashboard/Seller/MyInventory";
+import ManageOrders from "../pages/Dashboard/Seller/ManageOrders";
+import MyOrders from "../pages/Dashboard/Customer/MyOrders";
+import { createBrowserRouter } from "react-router";
+import Service from "../pages/PublicPages/Service";
+import About from "../pages/PublicPages/About";
+import Contact from "../pages/PublicPages/Contact";
 
 export const router = createBrowserRouter([
   {
-    path: '/',
+    path: "/",
     element: <MainLayout />,
     errorElement: <ErrorPage />,
     children: [
       {
-        path: '/',
+        path: "/",
         element: <Home />,
       },
       {
-        path: '/plant/:id',
+        path: "/plant/:id",
         element: <PlantDetails />,
       },
       {
-        path:'/services',
-        element: <Service/>
+        path: "/services",
+        element: (
+          <PrivateRoute>
+            <Service />
+          </PrivateRoute>
+        ),
       },
       {
-        path: '/aboute',
-        element: <About/>
+        path: "/aboute",
+        element: <About />,
       },
       {
-        path: '/contact',
-        element: <Contact/>
-      }
+        path: "/contact",
+        element: <Contact />,
+      },
     ],
   },
-  { path: '/login', element: <Login /> },
-  { path: '/signup', element: <SignUp /> },
+  { path: "/login", element: <Login /> },
+  { path: "/signup", element: <SignUp /> },
   {
-    path: '/dashboard',
+    path: "/dashboard",
     element: (
       <PrivateRoute>
         <DashboardLayout />
@@ -65,7 +69,7 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path: 'add-plant',
+        path: "add-plant",
         element: (
           <PrivateRoute>
             <AddPlant />
@@ -73,7 +77,7 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path: 'my-inventory',
+        path: "my-inventory",
         element: (
           <PrivateRoute>
             <MyInventory />
@@ -81,7 +85,7 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path: 'manage-users',
+        path: "manage-users",
         element: (
           <PrivateRoute>
             <ManageUsers />
@@ -89,7 +93,7 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path: 'profile',
+        path: "profile",
         element: (
           <PrivateRoute>
             <Profile />
@@ -97,7 +101,7 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path: 'my-orders',
+        path: "my-orders",
         element: (
           <PrivateRoute>
             <MyOrders />
@@ -105,9 +109,9 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path: 'manage-orders',
+        path: "manage-orders",
         element: <ManageOrders />,
       },
     ],
   },
-])
+]);

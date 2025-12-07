@@ -22,7 +22,7 @@ const Navbar = () => {
         <Container>
           <div className="flex flex-row  items-center justify-between gap-3 md:gap-0">
             {/* Logo */}
-            <Link to="/"> 
+            <Link to="/">
               <img src={logo} alt="logo" width="80" height="80" />
             </Link>
 
@@ -32,7 +32,11 @@ const Navbar = () => {
                   key={link.path}
                   to={link.path}
                   className={({ isActive }) =>
-                    `py-1 px-4 ${isActive ? "bg-primary text-white" : ""}`
+                    `py-1 px-4 ${
+                      isActive
+                        ? "bg-primary text-white rounded-sm font-semibold"
+                        : "font-medium"
+                    }`
                   }
                 >
                   {link.name}
