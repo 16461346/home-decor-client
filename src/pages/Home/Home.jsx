@@ -1,3 +1,4 @@
+import HowItWork from '../../components/Aboute/HowItWork'
 import AbouteOverview from '../../components/Home/AbouteOverview'
 import Plants from '../../components/Home/Plants'
 
@@ -7,6 +8,7 @@ const Home = () => {
     <div>
       <Plants />
       <AbouteOverview/>
+      <HowItWork/>
       {/* More components */}
     </div>
   )
