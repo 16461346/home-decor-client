@@ -35,9 +35,7 @@ export const router = createBrowserRouter([
       {
         path: "/services",
         element: (
-          <PrivateRoute>
             <Service />
-          </PrivateRoute>
         ),
       },
       {
