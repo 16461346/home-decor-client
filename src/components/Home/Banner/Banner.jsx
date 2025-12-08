@@ -1,7 +1,8 @@
 import React from "react";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from "react-responsive-carousel";
-import { GrMap } from "react-icons/gr";
+import { GrMap, GrVulnerability } from "react-icons/gr";
+import { Link } from "react-router";
 
 const Banner = () => {
   const images = [
@@ -43,15 +44,16 @@ const Banner = () => {
                 </h2>
 
                 <div className="flex flex-wrap gap-4">
-                  <button className="bg-primary text-white px-4 py-2 rounded-lg flex items-center gap-2 font-semibold hover:bg-secondary hover:shadow-lg transition shadow-md">
-                    <GrMap /> Coverage area
-                  </button>
-                  <button className="bg-primary text-white px-4 py-2 rounded-lg flex items-center gap-2 font-semibold hover:bg-secondary hover:shadow-lg transition shadow-md">
-                    <GrMap /> Coverage
-                  </button>
-                  <button className="bg-primary text-white px-4 py-2 rounded-lg flex items-center gap-2 font-semibold hover:bg-secondary hover:shadow-lg transition shadow-md">
-                    <GrMap /> Coverage
-                  </button>
+                  <Link to="/coverage">
+                    <button className="bg-primary text-white px-4 py-2 rounded-lg flex items-center gap-2 font-semibold hover:bg-secondary hover:shadow-lg transition shadow-md">
+                      <GrMap /> Coverage area
+                    </button>
+                  </Link>
+                  <Link to="/aboute">
+                    <button className="bg-primary text-white px-4 py-2 rounded-lg flex items-center gap-2 font-semibold hover:bg-secondary hover:shadow-lg transition shadow-md">
+                      <GrVulnerability /> Aboute us
+                    </button>
+                  </Link>
                 </div>
               </div>
             </div>

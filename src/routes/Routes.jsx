@@ -17,6 +17,8 @@ import { createBrowserRouter } from "react-router";
 import Service from "../pages/PublicPages/Service";
 import About from "../pages/PublicPages/About";
 import Contact from "../pages/PublicPages/Contact";
+import Covarage from "../pages/Covarage/Coverage";
+import Coverage from "../pages/Covarage/Coverage";
 
 export const router = createBrowserRouter([
   {
@@ -34,9 +36,11 @@ export const router = createBrowserRouter([
       },
       {
         path: "/services",
-        element: (
-            <Service />
-        ),
+        element: <Service />,
+      },
+      {
+        path: '/coverage',
+        element:<Coverage/>
       },
       {
         path: "/aboute",
