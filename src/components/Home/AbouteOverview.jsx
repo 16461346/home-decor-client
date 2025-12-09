@@ -9,7 +9,7 @@ const AbouteOverview = () => {
       <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-10">
 
         {/* LEFT IMAGES */}
-        <div className="relative w-full md:w-1/2 flex justify-center items-center h-[300px] sm:h-[380px] md:h-[450px]">
+        <div  data-aos="fade-right" className="relative w-full md:w-1/2 flex justify-center items-center h-[300px] sm:h-[380px] md:h-[450px]">
           {/* layer 1 */}
           <img
             src="https://images.unsplash.com/photo-1563906267088-b029e7101114?q=80&w=870"
@@ -31,7 +31,7 @@ const AbouteOverview = () => {
         </div>
 
         {/* TEXT AREA */}
-        <div className="w-full md:w-1/2 space-y-4 sm:space-y-6 text-center md:text-left">
+        <div data-aos='fade-left' className="w-full md:w-1/2 space-y-4 sm:space-y-6 text-center md:text-left">
           <h2 className="text-2xl sm:text-3xl font-bold">
             About Our <span className="text-secondary">HomeDecor !</span>
           </h2>

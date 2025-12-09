@@ -1,0 +1,42 @@
+[
+  { "name": "Dhaka", "lat": 23.8103, "lng": 90.4125, "address": "House 12, Road 5, Dhanmondi, Dhaka" },
+  { "name": "Gazipur", "lat": 23.9999, "lng": 90.4203, "address": "Chowrasta Main Road, Gazipur Sadar" },
+  { "name": "Narayanganj", "lat": 23.6238, "lng": 90.4990, "address": "Tanbazar Commercial Area, Narayanganj" },
+
+  { "name": "Chattogram", "lat": 22.3569, "lng": 91.7832, "address": "GEC Circle, Panchlaish, Chattogram" },
+  { "name": "Cox's Bazar", "lat": 21.4272, "lng": 92.0058, "address": "Kolatoli Beach Road, Cox's Bazar" },
+  { "name": "Bandarban", "lat": 22.1953, "lng": 92.2184, "address": "Army Para, Bandarban Sadar" },
+  { "name": "Rangamati", "lat": 22.7324, "lng": 92.2985, "address": "Reserve Bazar Lake Road, Rangamati" },
+
+  { "name": "Rajshahi", "lat": 24.3740, "lng": 88.6011, "address": "Shaheb Bazar Zero Point, Rajshahi" },
+  { "name": "Chapainawabganj", "lat": 24.5965, "lng": 88.2773, "address": "Shibganj Road, Chapainawabganj" },
+  { "name": "Naogaon", "lat": 24.8321, "lng": 88.9568, "address": "Uttara Mor, Naogaon Sadar" },
+  { "name": "Natore", "lat": 24.4206, "lng": 89.0001, "address": "Bonpara Highway Road, Natore" },
+
+  { "name": "Khulna", "lat": 22.8456, "lng": 89.5403, "address": "Shibbari Mor, Khulna" },
+  { "name": "Jessore", "lat": 23.1664, "lng": 89.2089, "address": "Chowrasta Mor, Jessore" },
+  { "name": "Satkhira", "lat": 22.7185, "lng": 89.0700, "address": "Kakdanga Road, Satkhira Sadar" },
+  { "name": "Bagerhat", "lat": 22.6580, "lng": 89.7850, "address": "Khan Jahan Ali Road, Bagerhat" },
+
+  { "name": "Sylhet", "lat": 24.8949, "lng": 91.8687, "address": "Zindabazar Main Road, Sylhet" },
+  { "name": "Moulvibazar", "lat": 24.4829, "lng": 91.7774, "address": "Chowmuhana Circle, Moulvibazar" },
+  { "name": "Habiganj", "lat": 24.3740, "lng": 91.4155, "address": "Shaistanagar Road, Habiganj" },
+  { "name": "Sunamganj", "lat": 25.0658, "lng": 91.3950, "address": "Derai Road, Sunamganj Sadar" },
+
+  { "name": "Barishal", "lat": 22.7010, "lng": 90.3535, "address": "Sadar Road, Barishal" },
+  { "name": "Bhola", "lat": 22.6859, "lng": 90.6480, "address": "Bangla School Road, Bhola Sadar" },
+  { "name": "Patuakhali", "lat": 22.3596, "lng": 90.3290, "address": "College Road, Patuakhali" },
+  { "name": "Pirojpur", "lat": 22.5780, "lng": 89.9750, "address": "Shilpacharya Road, Pirojpur" },
+
+  { "name": "Rangpur", "lat": 25.7439, "lng": 89.2752, "address": "Jahaj Company Mor, Rangpur" },
+  { "name": "Dinajpur", "lat": 25.6279, "lng": 88.6332, "address": "Nayabazar Road, Dinajpur" },
+  { "name": "Thakurgaon", "lat": 26.0330, "lng": 88.4690, "address": "Salandar Road, Thakurgaon" },
+  { "name": "Kurigram", "lat": 25.8054, "lng": 89.6362, "address": "College Road, Kurigram" },
+
+  { "name": "Mymensingh", "lat": 24.7471, "lng": 90.4203, "address": "Ganginar Par Main Road, Mymensingh" },
+  { "name": "Tangail", "lat": 24.2513, "lng": 89.9167, "address": "VIP Road, Tangail Sadar" },
+  { "name": "Sherpur", "lat": 25.0188, "lng": 90.0179, "address": "Thana Mor, Sherpur" },
+  { "name": "Jamalpur", "lat": 24.9375, "lng": 89.9373, "address": "Railgate Bazar, Jamalpur" }
+]
+
+

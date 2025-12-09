@@ -39,18 +39,18 @@ const Banner = () => {
             {/* Overlay */}
             <div className="absolute inset-0 flex items-center">
               <div className=" bg-opacity-30 p-8 md:p-16 w-full max-w-4xl mx-auto md:ml-20 rounded-lg">
-                <h2 className=" text-left text-white text-3xl md:text-5xl font-bold mb-6">
+                <h2 data-aos="fade-up" className=" text-left text-white text-3xl md:text-5xl font-bold mb-6">
                   Let us do the beauty design, that's you never seen before !
                 </h2>
 
                 <div className="flex flex-wrap gap-4">
                   <Link to="/coverage">
-                    <button className="bg-primary text-white px-4 py-2 rounded-lg flex items-center gap-2 font-semibold hover:bg-secondary hover:shadow-lg transition shadow-md">
+                    <button data-aos='fade-right' className="bg-primary text-white px-4 py-2 rounded-lg flex items-center gap-2 font-semibold hover:bg-secondary hover:shadow-lg transition shadow-md">
                       <GrMap /> Coverage area
                     </button>
                   </Link>
                   <Link to="/aboute">
-                    <button className="bg-primary text-white px-4 py-2 rounded-lg flex items-center gap-2 font-semibold hover:bg-secondary hover:shadow-lg transition shadow-md">
+                    <button data-aos='fade-left' className="bg-primary text-white px-4 py-2 rounded-lg flex items-center gap-2 font-semibold hover:bg-secondary hover:shadow-lg transition shadow-md">
                       <GrVulnerability /> Aboute us
                     </button>
                   </Link>

@@ -12,13 +12,13 @@ import Statistics from "../pages/Dashboard/Common/Statistics";
 import MainLayout from "../layouts/MainLayout";
 import MyInventory from "../pages/Dashboard/Seller/MyInventory";
 import ManageOrders from "../pages/Dashboard/Seller/ManageOrders";
-import MyOrders from "../pages/Dashboard/Customer/MyOrders";
 import { createBrowserRouter } from "react-router";
 import Service from "../pages/PublicPages/Service";
 import About from "../pages/PublicPages/About";
 import Contact from "../pages/PublicPages/Contact";
 import Covarage from "../pages/Covarage/Coverage";
 import Coverage from "../pages/Covarage/Coverage";
+import MyBooking from "../pages/Dashboard/Customer/MyBooking";
 
 export const router = createBrowserRouter([
   {
@@ -40,7 +40,8 @@ export const router = createBrowserRouter([
       },
       {
         path: '/coverage',
-        element:<Coverage/>
+        element:<Coverage/>,
+        loader: ()=>fetch('/coverage.json').then(res=>res.json())
       },
       {
         path: "/aboute",
@@ -103,10 +104,10 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path: "my-orders",
+        path: "my-booking",
         element: (
           <PrivateRoute>
-            <MyOrders />
+            <MyBooking/>
           </PrivateRoute>
         ),
       },

@@ -15,7 +15,7 @@ const HowItWork = () => {
 
           <div className="grid md:grid-cols-4 gap-8">
             {/* Step 1 */}
-            <div className="p-4 text-center  bg-gray-300 rounded-2xl shadow hover:shadow-lg transition">
+            <div  data-aos="flip-left" className="p-4 text-center  bg-gray-300 rounded-2xl shadow hover:shadow-lg transition">
               <FiUserPlus size={60} />
               <div className="text-left">
                 <h3 className="text-xl text-left font-bold text-primary mb-2">
@@ -26,7 +26,7 @@ const HowItWork = () => {
                 </p>
               </div>
             </div>
-            <div className="p-4 text-center  bg-gray-300 rounded-2xl shadow hover:shadow-lg transition">
+            <div  data-aos="flip-left" className="p-4 text-center  bg-gray-300 rounded-2xl shadow hover:shadow-lg transition">
               <MdOutlineBuildCircle size={60} />
               <div className="text-left">
                 <h3 className="text-xl text-left font-bold text-primary mb-2">
@@ -37,7 +37,7 @@ const HowItWork = () => {
                 </p>
               </div>
             </div>
-            <div className="p-4 text-center  bg-gray-300 rounded-2xl shadow hover:shadow-lg transition">
+            <div  data-aos="flip-left" className="p-4 text-center  bg-gray-300 rounded-2xl shadow hover:shadow-lg transition">
               <FaCreditCard size={60} />
               <div className="text-left">
                 <h3 className="text-xl text-left font-bold text-primary mb-2">
@@ -48,7 +48,7 @@ const HowItWork = () => {
                 </p>
               </div>
             </div>
-            <div className="p-4 text-center  bg-gray-300 rounded-2xl shadow hover:shadow-lg transition">
+            <div  data-aos="flip-left" className="p-4 text-center  bg-gray-300 rounded-2xl shadow hover:shadow-lg transition">
               <FaRocket size={60} />
               <div className="text-left">
                 <h3 className="text-xl text-left font-bold text-primary mb-2">

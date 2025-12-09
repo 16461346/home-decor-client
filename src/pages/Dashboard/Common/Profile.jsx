@@ -1,51 +1,70 @@
-import useAuth from '../../../hooks/useAuth'
-import coverImg from '../../../assets/images/cover.jpg'
+import useAuth from "../../../hooks/useAuth";
 
+const coverImg =
+  "https://images.unsplash.com/photo-1504805572947-34fad45aed93?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
 const Profile = () => {
-  const { user } = useAuth()
+  const { user } = useAuth();
 
   return (
-    <div className='flex justify-center items-center h-screen'>
-      <div className='bg-white shadow-lg rounded-2xl md:w-4/5 lg:w-3/5'>
+    <div className="flex  justify-center items-center h-screen">
+     <div className="bg-white border-l border-r border-secondary rounded-2xl md:w-4/5 lg:w-3/8
+                shadow-lg shadow-secondary/60">
         <img
-          alt='cover photo'
+          alt="cover photo"
           src={coverImg}
-          className='w-full mb-4 rounded-t-lg h-56'
+          className="w-full mb-4 rounded-t-lg h-56"
         />
-        <div className='flex flex-col items-center justify-center p-4 -mt-16'>
-          <a href='#' className='relative block'>
+        <div className="flex flex-col items-center justify-center p-4 -mt-16">
+          <a href="#" className="relative block">
             <img
-              alt='profile'
+              alt="profile"
               src={user?.photoURL}
-              className='mx-auto object-cover rounded-full h-24 w-24  border-2 border-white '
+              className="mx-auto object-cover rounded-full h-24 w-24  border-2 border-white "
             />
           </a>
 
-          <p className='p-2 px-4 text-xs text-white bg-lime-500 rounded-full'>
+          {/* <p className="p-2 px-4 text-xs text-white bg-primary rounded-full">
             Customer
-          </p>
-          <p className='mt-2 text-xl font-medium text-gray-800 '>
+          </p> */}
+          <p className="mt-2 text-xl font-medium text-gray-800 ">
             User Id: {user?.uid}
           </p>
-          <div className='w-full p-2 mt-4 rounded-lg'>
-            <div className='flex flex-wrap items-center justify-between text-sm text-gray-600 '>
-              <p className='flex flex-col'>
-                Name
-                <span className='font-bold text-gray-600 '>
-                  {user?.displayName}
-                </span>
-              </p>
-              <p className='flex flex-col'>
-                Email
-                <span className='font-bold text-gray-600 '>{user?.email}</span>
-              </p>
-
+          <div className="w-full p-2 mt-4 rounded-lg">
+            <div className="flex flex-wrap items-center justify-between text-sm text-gray-600 ">
               <div>
-                <button className='bg-lime-500  px-10 py-1 rounded-lg text-white cursor-pointer hover:bg-lime-800 block mb-1'>
-                  Update Profile
+                <h2 className="text-xl font-bold">
+                  Name :{" "}
+                  <span className="font-normal text-gray-600 ">
+                    {user?.displayName}
+                  </span>
+                </h2>
+                <h2 className="text-xl font-bold">
+                  Email :{" "}
+                  <span className="font-bold text-red-400 ">
+                    {user?.email}
+                  </span>
+                </h2>
+                <h2 className="text-xl font-bold">
+                  Role :{" "}
+                  <span className=" text-secondary font-bold  ">
+                    Customer
+                  </span>
+                </h2>
+
+              </div>
+
+              <div className="flex  gap-4 mt-4 w-full">
+                <button
+                  className="w-full h-12 bg-primary  text-gray-700 rounded-lg font-semibold  hover:text-white
+                     hover:bg-blue-500 hover:scale-105 transform transition duration-300 ease-in-out"
+                >
+                  Profile update
                 </button>
-                <button className='bg-lime-500 px-7 py-1 rounded-lg text-white cursor-pointer hover:bg-lime-800'>
-                  Change Password
+                <button
+                  className="w-full h-12 bg-primary  text-gray-700 rounded-lg font-semibold  hover:text-white
+                     hover:bg-blue-500 hover:scale-105 transform transition duration-300 ease-in-out"
+                >
+                  Change password
                 </button>
               </div>
             </div>
@@ -53,7 +72,7 @@ const Profile = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Profile
+export default Profile;

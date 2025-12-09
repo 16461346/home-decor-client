@@ -67,7 +67,7 @@ const Sidebar = () => {
               to="/"
               className="w-full flex items-center justify-center bg-lime-100 rounded-lg shadow px-4 py-2"
             >
-              <img src={logo} alt="logo" width="100" />
+              <img src={logo} alt="logo" width="70" />
             </Link>
           </div>
 

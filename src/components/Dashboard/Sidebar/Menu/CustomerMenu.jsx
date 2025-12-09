@@ -1,4 +1,4 @@
-import { BsFingerprint } from 'react-icons/bs'
+import {BsCalendarCheckFill } from 'react-icons/bs'
 import { GrUserAdmin } from 'react-icons/gr'
 import MenuItem from './MenuItem'
 import { useState } from 'react'
@@ -12,7 +12,7 @@ const CustomerMenu = () => {
 
   return (
     <>
-      <MenuItem icon={BsFingerprint} label='My Orders' address='my-orders' />
+      <MenuItem icon={BsCalendarCheckFill} label='My Orders' address='my-booking' />
 
       <div
         onClick={() => setIsOpen(true)}
@@ -20,7 +20,7 @@ const CustomerMenu = () => {
       >
         <GrUserAdmin className='w-5 h-5' />
 
-        <span className='mx-4 font-medium'>Become A Seller</span>
+        <span className='mx-4 font-medium'>Request a Decorator</span>
       </div>
 
       <BecomeSellerModal closeModal={closeModal} isOpen={isOpen} />

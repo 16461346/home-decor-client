@@ -11,7 +11,7 @@ const Plants = () => {
     <>
       <Banner />
       <Container>
-        <div className="px-4 sm:px-10 md:px-20 lg:px-32 xl:px-40">
+        <div  data-aos="fade-up" className="px-4 sm:px-10 md:px-20 lg:px-32 xl:px-40">
           <section className="my-16">
 
             {/* Section Title */}

@@ -53,6 +53,7 @@ const OurServices = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6">
           {services.map((service, index) => (
             <div
+            data-aos="zoom-in"
               key={index}
               className="flex flex-col items-center p-5 rounded-lg shadow-lg hover:shadow-xl transition bg-gray-200"
             >

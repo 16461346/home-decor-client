@@ -1,6 +1,6 @@
 import CustomerOrderDataRow from '../../../components/Dashboard/TableRows/CustomerOrderDataRow'
 
-const MyOrders = () => {
+const MyBooking = () => {
   return (
     <>
       <div className='container mx-auto px-4 sm:px-8'>
@@ -67,4 +67,4 @@ const MyOrders = () => {
   )
 }
 
-export default MyOrders
+export default MyBooking
