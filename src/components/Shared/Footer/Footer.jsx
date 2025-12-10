@@ -5,47 +5,44 @@ const Footer = ({ logo }) => {
   return (
     <footer className="bg-primary text-black">
       <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 lg:py-24">
+
+        {/* MAIN GRID */}
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-3">
+
           {/* Brand Logo & Social */}
-          <div className="text-center lg:text-left">
-            <div className="flex justify-center lg:justify-start mb-4">
+          <div
+            data-aos="fade-up"
+            data-aos-duration="800"
+            className="text-center lg:text-left"
+          >
+            <div
+              data-aos="zoom-in"
+              data-aos-duration="900"
+              className="flex justify-center lg:justify-start mb-4"
+            >
               <img src={logo} alt="logo" className="h-12 w-auto" />
             </div>
-            <p>
+
+            <p data-aos="fade-right" data-aos-duration="1000">
               HomeDecor is your one-stop solution for modern home and ceremony
               decoration services.
             </p>
-            <div className="flex justify-center lg:justify-start gap-4 mt-6 text-2xl">
-              <a
-                href="https://facebook.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="transform hover:scale-110  transition-all hover:text-secondary duration-400"
-              >
+
+            <div
+              data-aos="zoom-in-up"
+              data-aos-duration="1000"
+              className="flex justify-center lg:justify-start gap-4 mt-6 text-2xl"
+            >
+              <a className="transform hover:scale-110 transition-all hover:text-secondary">
                 <FaFacebookF />
               </a>
-              <a
-                href="https://youtube.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="transform hover:scale-110 transition-all hover:text-secondary duration-400"
-              >
+              <a className="transform hover:scale-110 transition-all hover:text-secondary">
                 <FaYoutube />
               </a>
-              <a
-                href="https://twitter.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="transform hover:scale-110  transition-all hover:text-secondary duration-400"
-              >
+              <a className="transform hover:scale-110 transition-all hover:text-secondary">
                 <FaSquareXTwitter />
               </a>
-              <a
-                href="https://instagram.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="transform hover:scale-110  transition-all hover:text-secondary duration-400"
-              >
+              <a className="transform hover:scale-110 transition-all hover:text-secondary">
                 <FaInstagram />
               </a>
             </div>
@@ -53,7 +50,13 @@ const Footer = ({ logo }) => {
 
           {/* Middle Links */}
           <div className="grid grid-cols-2 gap-8 text-center sm:grid-cols-3 lg:col-span-2 lg:text-left">
-            <div>
+
+            {/* Product */}
+            <div
+              data-aos="fade-right"
+              data-aos-duration="800"
+              className="transition-all"
+            >
               <p className="text-lg font-semibold mb-4">Product</p>
               <ul className="space-y-2">
                 <li className="hover:underline cursor-pointer">Overview</li>
@@ -63,7 +66,11 @@ const Footer = ({ logo }) => {
               </ul>
             </div>
 
-            <div>
+            {/* Company */}
+            <div
+              data-aos="fade-up"
+              data-aos-duration="900"
+            >
               <p className="text-lg font-semibold mb-4">Company</p>
               <ul className="space-y-2">
                 <li className="hover:underline cursor-pointer">About</li>
@@ -73,7 +80,11 @@ const Footer = ({ logo }) => {
               </ul>
             </div>
 
-            <div>
+            {/* Legal */}
+            <div
+              data-aos="fade-left"
+              data-aos-duration="800"
+            >
               <p className="text-lg font-semibold mb-4">Legal</p>
               <ul className="space-y-2">
                 <li className="hover:underline cursor-pointer">Cookies</li>
@@ -86,9 +97,14 @@ const Footer = ({ logo }) => {
         </div>
 
         {/* Bottom Footer */}
-        <div className="mt-12 border-t border-gray-300 pt-6 text-center text-black text-sm">
+        <div
+          data-aos="fade-up"
+          data-aos-duration="1000"
+          className="mt-12 border-t border-gray-300 pt-6 text-center text-black text-sm"
+        >
           © {new Date().getFullYear()} HomeDecor — All rights reserved.
         </div>
+
       </div>
     </footer>
   );

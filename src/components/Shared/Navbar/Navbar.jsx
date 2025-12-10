@@ -63,9 +63,8 @@ const Navbar = () => {
             <div className="relative hidden md:block">
               <div
                 onClick={() => setIsOpen(!isOpen)}
-                className="p-2 border border-neutral-300 flex items-center gap-3 rounded-full cursor-pointer hover:shadow-md transition"
+                className="p-2  border border-neutral-300 flex items-center gap-3 rounded-full cursor-pointer hover:shadow-md transition"
               >
-                <AiOutlineMenu />
                 <img
                   className="rounded-full"
                   src={user?.photoURL || avatarImg}

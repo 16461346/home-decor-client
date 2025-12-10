@@ -4,17 +4,37 @@ import Container from "../../components/Shared/Container";
 const Contact = () => {
   return (
     <Container>
-      {/* Contact Form Section */}
-      <div className="text-center my-10 w-full md:w-2/3 lg:w-1/2 mx-auto px-4">
-        <h2 className="text-4xl md:text-5xl font-extrabold">Contact Us</h2>
 
-        <h3 className="text-xl md:text-2xl font-semibold mt-3">
+      {/* Contact Form Section */}
+      <div
+        data-aos="fade-up"
+        data-aos-duration="900"
+        className="text-center my-10 w-full md:w-2/3 lg:w-1/2 mx-auto px-4"
+      >
+        <h2
+          data-aos="zoom-in"
+          data-aos-duration="900"
+          className="text-4xl md:text-5xl font-extrabold"
+        >
+          Contact Us
+        </h2>
+
+        <h3
+          data-aos="fade-up"
+          data-aos-duration="900"
+          className="text-xl md:text-2xl font-semibold mt-3"
+        >
           Any questions or remarks? Just write us a message!
         </h3>
 
         {/* Form Fields */}
         <div className="flex flex-col md:flex-row gap-5 items-center justify-center my-10">
-          <fieldset className="w-full">
+          
+          <fieldset
+            data-aos="fade-right"
+            data-aos-duration="1000"
+            className="w-full"
+          >
             <label className="text-left text-xl font-semibold block mb-1">
               Email
             </label>
@@ -25,7 +45,11 @@ const Contact = () => {
             />
           </fieldset>
 
-          <fieldset className="w-full">
+          <fieldset
+            data-aos="fade-left"
+            data-aos-duration="1000"
+            className="w-full"
+          >
             <label className="text-left text-xl font-semibold block mb-1">
               Name
             </label>
@@ -38,18 +62,30 @@ const Contact = () => {
         </div>
 
         {/* Submit Button */}
-        <button className="btn tracking-widest text-xl font-bold text-white w-full bg-primary rounded-4xl py-3">
+        <button
+          data-aos="zoom-in"
+          data-aos-duration="900"
+          className="btn tracking-widest text-xl font-bold text-white w-full bg-primary rounded-4xl py-3"
+        >
           Submit
         </button>
       </div>
 
       {/* Contact Info Section */}
-      <div className="w-full bg-primary py-10 mt-20">
+      <div
+        data-aos="fade-up"
+        data-aos-duration="900"
+        className="w-full bg-primary py-10 mt-20"
+      >
         <div className="bg-gray-300 w-11/12 md:w-10/12 mx-auto rounded-md shadow-md py-10 px-5">
+
           <div className="grid grid-cols-1 md:grid-cols-3 gap-10 text-center">
-            
+
             {/* About Club */}
-            <div>
+            <div
+              data-aos="flip-left"
+              data-aos-duration="1000"
+            >
               <div className="w-20 h-20 bg-[#0E9BA4] mx-auto rounded-full flex items-center justify-center text-white text-4xl">
                 🏃
               </div>
@@ -61,7 +97,10 @@ const Contact = () => {
             </div>
 
             {/* Phone */}
-            <div>
+            <div
+              data-aos="flip-up"
+              data-aos-duration="1000"
+            >
               <div className="w-20 h-20 bg-[#0E9BA4] mx-auto rounded-full flex items-center justify-center text-white text-4xl">
                 ☎️
               </div>
@@ -73,7 +112,10 @@ const Contact = () => {
             </div>
 
             {/* Office Location */}
-            <div>
+            <div
+              data-aos="flip-right"
+              data-aos-duration="1000"
+            >
               <div className="w-20 h-20 bg-[#0E9BA4] mx-auto rounded-full flex items-center justify-center text-white text-4xl">
                 📍
               </div>
@@ -88,8 +130,10 @@ const Contact = () => {
             </div>
 
           </div>
+
         </div>
       </div>
+
     </Container>
   );
 };
