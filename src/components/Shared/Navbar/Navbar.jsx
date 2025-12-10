@@ -24,10 +24,11 @@ const Navbar = () => {
       <div className="py-4">
         <Container>
           <div className="flex items-center justify-between">
-
             {/* Logo */}
             <Link to="/">
-              <img src={logo} alt="logo" width="80" height="80" />
+              <div className="bg-white p-2 rounded-full border border-gray-300">
+                <img src={logo} alt="logo" width="60" height="60" />
+              </div>
             </Link>
 
             {/* Desktop Menu */}
@@ -112,7 +113,6 @@ const Navbar = () => {
                 </div>
               )}
             </div>
-
           </div>
 
           {/* Mobile Menu Drawer */}

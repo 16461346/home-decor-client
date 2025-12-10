@@ -1,19 +1,11 @@
 import React, { useState, useEffect } from "react";
 import Container from "../../components/Shared/Container";
 import Card from "../../components/Home/Card";
+import { useLoaderData } from "react-router";
 
 const Service = () => {
-  // Fake services data (এগুলো API থেকেও আসতে পারে)
-  const servicesData = [
-    { id: 1, name: "Home Cleaning", price: 50 },
-    { id: 2, name: "AC Repairing", price: 30 },
-    { id: 3, name: "Interior Decoration", price: 120 },
-    { id: 4, name: "Plumbing Service", price: 40 },
-    { id: 5, name: "Electrician", price: 25 },
-    { id: 6, name: "Web Setup", price: 80 },
-    { id: 7, name: "Garden Setup", price: 60 },
-    { id: 8, name: "Sofa Cleaning", price: 35 },
-  ];
+  const  servicesData =useLoaderData()
+  console.log(servicesData);
 
   // States
   const [searchText, setSearchText] = useState("");
@@ -50,7 +42,7 @@ const Service = () => {
         data-aos-duration="800"
       >
         <h2 className="text-xl sm:text-2xl font-semibold text-center sm:text-left tracking-wide">
-          Total Services ({services.length})
+         Available Decorations ({services.length})
         </h2>
 
         {/* Search + Sort */}
@@ -103,7 +95,7 @@ const Service = () => {
       </div>
 
       {/* Cards Section */}
-      <div className="pt-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-6 sm:gap-8">
+      <div className="pt-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-3 2xl:grid-cols-6 gap-6 sm:gap-8">
         {services.map((service, i) => (
           <div
             key={service.id}

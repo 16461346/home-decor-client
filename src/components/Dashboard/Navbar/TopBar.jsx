@@ -3,10 +3,13 @@ import logo from "../../../assets/images/Screenshot from 2025-12-07 12-52-30.png
 import { Link } from "react-router";
 import { AiOutlineBars } from "react-icons/ai";
 import useAuth from "../../../hooks/useAuth";
+import { CgProfile } from "react-icons/cg";
+import { RiLogoutBoxLine, RiSettings3Line } from "react-icons/ri";
 
 const TopBar = ({ toggleSidebar }) => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const { logOut } = useAuth();
+  const { logOut, user } = useAuth();
+  console.log(user);
 
   const toggleDropdown = () => setDropdownOpen(!dropdownOpen);
 
@@ -14,12 +17,14 @@ const TopBar = ({ toggleSidebar }) => {
     <nav className="fixed top-0 z-50 w-full md:px-4 lg:px-4 bg-base-200 border-b border-base-300">
       <div className="px-3 py-3 lg:px-5 lg:pl-3 flex items-center justify-between">
         {/* Logo */}
-        <Link to="/dashboard" className="hidden md:flex items-center">
-          <img src={logo} alt="logo" className="w-12 sm:w-14 md:w-16" />
+        <Link to="/dashboard">
+          <div className="bg-white p-2 hidden md:block rounded-full border border-gray-300">
+            <img src={logo} alt="logo" width="60" height="60" />
+          </div>
         </Link>
 
         {/* Mobile Hamburger */}
-        <div className="flex items-center space-x-2  md:hidden">
+        <div className="flex items-center w-full justify-start pl-8 md:hidden">
           <button
             onClick={toggleSidebar}
             className="p-2 rounded border border-gray-300 hover:bg-gray-300 transition"
@@ -38,44 +43,45 @@ const TopBar = ({ toggleSidebar }) => {
             <span className="sr-only">Open user menu</span>
             <img
               className="w-10 h-10 rounded-full"
-              src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
+              src={
+                user?.photoURL ||
+                "https://flowbite.com/docs/images/people/profile-picture-5.jpg"
+              }
               alt="user"
             />
           </button>
 
           {dropdownOpen && (
-            <div className="absolute right-0 mt-12 w-44 bg-base-200 border border-base-300 rounded-lg shadow-lg py-2">
+            <div className="absolute right-0 mt-2 w-44 bg-base-200 border border-base-300 rounded-lg shadow-lg py-2">
               <div className="px-4 py-3 border-b border-base-300">
-                <p className="text-sm font-medium">Neil Sims</p>
-                <p className="text-sm text-gray-600 truncate">
-                  neil.sims@flowbite.com
-                </p>
+                <p className="text-sm font-medium">{user?.displayName}</p>
+                <p className="text-sm text-gray-600 truncate">{user?.email}</p>
               </div>
               <ul className="text-sm text-gray-700 font-medium">
-                <li>
-                  <a
-                    href="#"
-                    className="block px-4 py-2 hover:bg-gray-300 rounded"
-                  >
-                    Settings
-                  </a>
-                </li>
                 <li>
                   <Link
                     to={"/dashboard/profile"}
                     href="#"
-                    className="block px-4 py-2 hover:bg-gray-300 rounded"
+                    className="flex items-center gap-1 px-4 py-2 hover:bg-gray-300 rounded"
                   >
-                    Profile
+                    <CgProfile size={20} /> Profile
                   </Link>
                 </li>
                 <li>
                   <a
                     onClick={logOut}
                     href="#"
-                    className="block px-4 py-2 hover:bg-gray-300 rounded"
+                    className="flex gap-1 items-center px-4 py-2 hover:bg-gray-300 rounded"
                   >
-                    Sign out
+                    <RiLogoutBoxLine size={20} /> Sign out
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    className="flex gap-1 items-center px-4 py-2 hover:bg-gray-300 rounded"
+                  >
+                    <RiSettings3Line size={20} /> Settings
                   </a>
                 </li>
               </ul>

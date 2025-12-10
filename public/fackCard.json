@@ -1,0 +1,75 @@
+[
+  {
+    "id": 1,
+    "name": "Home Cleaning",
+    "category": "Home",
+    "cost": 500,
+    "image": "https://images.pexels.com/photos/271624/pexels-photo-271624.jpeg",
+    "description": "Professional home cleaning service ensuring a spotless and fresh living space.",
+    "rating": 4.8
+  },
+  {
+    "id": 2,
+    "name": "AC Repairing",
+    "category": "Home Appliance",
+    "cost": 300,
+    "image": "https://images.pexels.com/photos/4844/air-conditioner-maintenance-blue-small.jpg",
+    "description": "Expert AC repairing and maintenance service to keep your home cool and comfortable.",
+    "rating": 4.5
+  },
+  {
+    "id": 3,
+    "name": "Interior Decoration",
+    "category": "Home",
+    "cost": 15000,
+    "image": "https://images.pexels.com/photos/1866149/pexels-photo-1866149.jpeg",
+    "description": "Creative interior decoration to transform your home into a stylish and cozy space.",
+    "rating": 4.9
+  },
+  {
+    "id": 4,
+    "name": "Plumbing Service",
+    "category": "Home",
+    "cost": 2000,
+    "image": "https://images.pexels.com/photos/255358/pexels-photo-255358.jpeg",
+    "description": "Reliable plumbing service for installations, repairs, and maintenance of water systems.",
+    "rating": 4.6
+  },
+  {
+    "id": 5,
+    "name": "Electrician",
+    "category": "Home Appliance",
+    "cost": 500,
+    "image": "https://images.pexels.com/photos/4707423/pexels-photo-4707423.jpeg",
+    "description": "Certified electrician service for safe and efficient electrical repairs and installations.",
+    "rating": 4.7
+  },
+  {
+    "id": 6,
+    "name": "Web Setup",
+    "category": "Office",
+    "cost": 8000,
+    "image": "https://images.pexels.com/photos/1181671/pexels-photo-1181671.jpeg",
+    "description": "Complete website setup for your office or business including design and deployment.",
+    "rating": 4.8
+  },
+  {
+    "id": 7,
+    "name": "Garden Setup",
+    "category": "Outdoor",
+    "cost": 5000,
+    "image": "https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg",
+    "description": "Professional garden setup with plants, landscaping, and maintenance services.",
+    "rating": 4.6
+  },
+  {
+    "id": 8,
+    "name": "Sofa Cleaning",
+    "category": "Home",
+    "cost": 2500,
+    "image": "https://images.pexels.com/photos/271624/pexels-photo-271624.jpeg",
+    "description": "Deep sofa cleaning service to remove dust, stains, and allergens for a fresh seating area.",
+    "rating": 4.7
+  }
+]
+
