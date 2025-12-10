@@ -32,7 +32,7 @@ export const router = createBrowserRouter([
         loader:()=>fetch('/fackCard.json').then(res=>res.json())
       },
       {
-        path: "/plant/:id",
+        path: "/service/:id",
         element: <PlantDetails />,
       },
       {

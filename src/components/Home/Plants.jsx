@@ -24,13 +24,13 @@ const Plants = ({ data }) => {
             {/* Cards Grid */}
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8 px-2">
               {/* Card (reusable structure) */}
-              {topRated.slice(0, 3).map((item, i) => (
+              {topRated.slice(0, 3).map((service, i) => (
                 <div
                   key={i}
                   className="relative rounded-sm overflow-hidden shadow-lg hover:scale-105 transition-all duration-300"
                 >
                   <img
-                    src={item?.image}
+                    src={service?.image}
                     className="w-full h-64 sm:h-72 md:h-80 lg:h-96 object-cover"
                     alt=""
                   />
@@ -40,9 +40,9 @@ const Plants = ({ data }) => {
                   {/* Overlay Box */}
                   <div className="absolute bottom-4 left-4 right-4 bg-white/90 backdrop-blur-sm rounded-lg p-3 sm:p-4 shadow">
                     <h3 className="text-xl font-semibold ">
-                      {item.name}{" "}
+                      {service.name}{" "}
                       <span className="text-green-700 text-xs border px-1 rounded-2xl">
-                        {item?.category || "N/A"}
+                        {service?.category || "N/A"}
                       </span>
                     </h3>
                     <p className="flex items-center gap-1.5 font-sans text-base font-normal leading-relaxed text-blue-gray-900 antialiased">
@@ -59,16 +59,16 @@ const Plants = ({ data }) => {
                           clip-rule="evenodd"
                         ></path>
                       </svg>
-                      {item?.rating}
+                      {service?.rating}
                     </p>
 
                     <p className="text-gray-600 text-sm">
-                      {item?.description.split(" ").slice(0, 10).join(" ")}...
+                      {service?.description.split(" ").slice(0, 10).join(" ")}...
                     </p>
 
-                    <button className="text-primary font-semibold flex items-center gap-1 mt-1 hover:underline">
+                    <Link to={`/service/${service?.id}`} className="text-primary font-semibold flex items-center gap-1 mt-1 hover:underline">
                       See more <IoIosArrowForward />
-                    </button>
+                    </Link>
                   </div>
                 </div>
               ))}

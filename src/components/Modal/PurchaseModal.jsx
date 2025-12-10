@@ -1,63 +1,85 @@
-import { Dialog, DialogPanel, DialogTitle } from '@headlessui/react'
+import { Dialog, DialogPanel, DialogTitle } from "@headlessui/react";
 
 const PurchaseModal = ({ closeModal, isOpen }) => {
-  // Total Price Calculation
-
   return (
     <Dialog
       open={isOpen}
-      as='div'
-      className='relative z-10 focus:outline-none '
+      as="div"
+      className="relative z-50 focus:outline-none"
       onClose={closeModal}
     >
-      <div className='fixed inset-0 z-10 w-screen overflow-y-auto'>
-        <div className='flex min-h-full items-center justify-center p-4'>
-          <DialogPanel
-            transition
-            className='w-full max-w-md bg-white p-6 backdrop-blur-2xl duration-300 ease-out data-closed:transform-[scale(95%)] data-closed:opacity-0 shadow-xl rounded-2xl'
-          >
-            <DialogTitle
-              as='h3'
-              className='text-lg font-medium text-center leading-6 text-gray-900'
-            >
-              Review Info Before Purchase
-            </DialogTitle>
-            <div className='mt-2'>
-              <p className='text-sm text-gray-500'>Plant: Money Plant</p>
-            </div>
-            <div className='mt-2'>
-              <p className='text-sm text-gray-500'>Category: Indoor</p>
-            </div>
-            <div className='mt-2'>
-              <p className='text-sm text-gray-500'>Customer: PH</p>
-            </div>
+      {/* Backdrop */}
+      <div className="fixed inset-0 bg-black/40 backdrop-blur-sm" aria-hidden="true" />
 
-            <div className='mt-2'>
-              <p className='text-sm text-gray-500'>Price: $ 120</p>
-            </div>
-            <div className='mt-2'>
-              <p className='text-sm text-gray-500'>Available Quantity: 5</p>
-            </div>
-            <div className='flex mt-2 justify-around'>
-              <button
-                type='button'
-                className='cursor-pointer inline-flex justify-center rounded-md border border-transparent bg-green-100 px-4 py-2 text-sm font-medium text-green-900 hover:bg-green-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-2'
+      <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+        <DialogPanel
+          transition
+          className="w-full max-w-md bg-gray-900 px-8 py-6 rounded-2xl shadow-2xl 
+          duration-300 ease-out data-closed:opacity-0 data-closed:scale-95"
+        >
+          {/* Title */}
+          <DialogTitle
+            as="h3"
+            className="text-2xl font-extrabold text-center mb-4 text-white tracking-wide
+             underline underline-offset-4 decoration-primary"
+          >
+            Review Before Booking
+          </DialogTitle>
+
+          {/* Info Section */}
+          <div className="space-y-4 mt-4">
+
+            <p className="text-gray-200 text-lg font-semibold">
+              Decoration:
+              <span
+                className="ml-2 text-primary font-bold px-2 py-0.5 bg-primary/20 rounded-md"
               >
-                Pay
-              </button>
-              <button
-                type='button'
-                className='cursor-pointer inline-flex justify-center rounded-md border border-transparent bg-red-100 px-4 py-2 text-sm font-medium text-red-900 hover:bg-red-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2'
-                onClick={closeModal}
+                Dynamic Title Here
+              </span>
+            </p>
+
+            <p className="text-gray-200 text-lg font-semibold">
+              Category:
+              <span
+                className="ml-2 text-pink-300 font-bold px-2 py-0.5 bg-pink-600/20 rounded-md"
               >
-                Cancel
-              </button>
-            </div>
-          </DialogPanel>
-        </div>
+                Home Decor
+              </span>
+            </p>
+
+            <p className="text-gray-200 text-lg font-semibold">
+              Price:
+              <span
+                className="ml-2 text-green-300 font-extrabold px-2 py-0.5 bg-red-200/20 rounded-md"
+              >
+                $990.00
+              </span>
+            </p>
+          </div>
+
+          {/* Buttons */}
+          <div className="flex mt-10 justify-between">
+            <button
+              type="button"
+              className="w-[48%] py-3 rounded-xl bg-blue-500 hover:bg-blue-600 
+              text-white font-bold shadow-md transition"
+            >
+              Pay Now
+            </button>
+
+            <button
+              type="button"
+              onClick={closeModal}
+              className="w-[48%] py-3 rounded-xl bg-red-500 hover:bg-red-600 
+              text-white font-bold shadow-md transition"
+            >
+              Cancel
+            </button>
+          </div>
+        </DialogPanel>
       </div>
     </Dialog>
-  )
-}
+  );
+};
 
-export default PurchaseModal
+export default PurchaseModal;
