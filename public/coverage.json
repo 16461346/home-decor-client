@@ -1,42 +1,100 @@
 [
-  { "name": "Dhaka", "lat": 23.8103, "lng": 90.4125, "address": "House 12, Road 5, Dhanmondi, Dhaka" },
-  { "name": "Gazipur", "lat": 23.9999, "lng": 90.4203, "address": "Chowrasta Main Road, Gazipur Sadar" },
-  { "name": "Narayanganj", "lat": 23.6238, "lng": 90.4990, "address": "Tanbazar Commercial Area, Narayanganj" },
-
-  { "name": "Chattogram", "lat": 22.3569, "lng": 91.7832, "address": "GEC Circle, Panchlaish, Chattogram" },
-  { "name": "Cox's Bazar", "lat": 21.4272, "lng": 92.0058, "address": "Kolatoli Beach Road, Cox's Bazar" },
-  { "name": "Bandarban", "lat": 22.1953, "lng": 92.2184, "address": "Army Para, Bandarban Sadar" },
-  { "name": "Rangamati", "lat": 22.7324, "lng": 92.2985, "address": "Reserve Bazar Lake Road, Rangamati" },
-
-  { "name": "Rajshahi", "lat": 24.3740, "lng": 88.6011, "address": "Shaheb Bazar Zero Point, Rajshahi" },
-  { "name": "Chapainawabganj", "lat": 24.5965, "lng": 88.2773, "address": "Shibganj Road, Chapainawabganj" },
-  { "name": "Naogaon", "lat": 24.8321, "lng": 88.9568, "address": "Uttara Mor, Naogaon Sadar" },
-  { "name": "Natore", "lat": 24.4206, "lng": 89.0001, "address": "Bonpara Highway Road, Natore" },
-
-  { "name": "Khulna", "lat": 22.8456, "lng": 89.5403, "address": "Shibbari Mor, Khulna" },
-  { "name": "Jessore", "lat": 23.1664, "lng": 89.2089, "address": "Chowrasta Mor, Jessore" },
-  { "name": "Satkhira", "lat": 22.7185, "lng": 89.0700, "address": "Kakdanga Road, Satkhira Sadar" },
-  { "name": "Bagerhat", "lat": 22.6580, "lng": 89.7850, "address": "Khan Jahan Ali Road, Bagerhat" },
-
-  { "name": "Sylhet", "lat": 24.8949, "lng": 91.8687, "address": "Zindabazar Main Road, Sylhet" },
-  { "name": "Moulvibazar", "lat": 24.4829, "lng": 91.7774, "address": "Chowmuhana Circle, Moulvibazar" },
-  { "name": "Habiganj", "lat": 24.3740, "lng": 91.4155, "address": "Shaistanagar Road, Habiganj" },
-  { "name": "Sunamganj", "lat": 25.0658, "lng": 91.3950, "address": "Derai Road, Sunamganj Sadar" },
-
-  { "name": "Barishal", "lat": 22.7010, "lng": 90.3535, "address": "Sadar Road, Barishal" },
-  { "name": "Bhola", "lat": 22.6859, "lng": 90.6480, "address": "Bangla School Road, Bhola Sadar" },
-  { "name": "Patuakhali", "lat": 22.3596, "lng": 90.3290, "address": "College Road, Patuakhali" },
-  { "name": "Pirojpur", "lat": 22.5780, "lng": 89.9750, "address": "Shilpacharya Road, Pirojpur" },
-
-  { "name": "Rangpur", "lat": 25.7439, "lng": 89.2752, "address": "Jahaj Company Mor, Rangpur" },
-  { "name": "Dinajpur", "lat": 25.6279, "lng": 88.6332, "address": "Nayabazar Road, Dinajpur" },
-  { "name": "Thakurgaon", "lat": 26.0330, "lng": 88.4690, "address": "Salandar Road, Thakurgaon" },
-  { "name": "Kurigram", "lat": 25.8054, "lng": 89.6362, "address": "College Road, Kurigram" },
-
-  { "name": "Mymensingh", "lat": 24.7471, "lng": 90.4203, "address": "Ganginar Par Main Road, Mymensingh" },
-  { "name": "Tangail", "lat": 24.2513, "lng": 89.9167, "address": "VIP Road, Tangail Sadar" },
-  { "name": "Sherpur", "lat": 25.0188, "lng": 90.0179, "address": "Thana Mor, Sherpur" },
-  { "name": "Jamalpur", "lat": 24.9375, "lng": 89.9373, "address": "Railgate Bazar, Jamalpur" }
+  {
+    "division": "Dhaka",
+    "districts": [
+      { "name": "Dhaka", "lat": 23.8103, "lng": 90.4125 },
+      { "name": "Gazipur", "lat": 23.9999, "lng": 90.4203 },
+      { "name": "Narayanganj", "lat": 23.6238, "lng": 90.4990 },
+      { "name": "Tangail", "lat": 24.2513, "lng": 89.9167 },
+      { "name": "Mymensingh", "lat": 24.7471, "lng": 90.4203 },
+      { "name": "Narsingdi", "lat": 23.9277, "lng": 90.7170 },
+      { "name": "Manikganj", "lat": 23.8616, "lng": 90.0143 },
+      { "name": "Munshiganj", "lat": 23.5424, "lng": 90.5022 },
+      { "name": "Shariatpur", "lat": 23.2370, "lng": 90.3730 },
+      { "name": "Faridpur", "lat": 23.6071, "lng": 89.8432 }
+    ]
+  },
+  {
+    "division": "Chattogram",
+    "districts": [
+      { "name": "Chattogram", "lat": 22.3569, "lng": 91.7832 },
+      { "name": "Cox's Bazar", "lat": 21.4272, "lng": 92.0058 },
+      { "name": "Bandarban", "lat": 22.1953, "lng": 92.2184 },
+      { "name": "Rangamati", "lat": 22.7324, "lng": 92.2985 },
+      { "name": "Khagrachhari", "lat": 23.1189, "lng": 91.9877 },
+      { "name": "Noakhali", "lat": 22.8163, "lng": 91.0994 },
+      { "name": "Feni", "lat": 22.9035, "lng": 91.3929 },
+      { "name": "Brahmanbaria", "lat": 23.9636, "lng": 91.1337 }
+    ]
+  },
+  {
+    "division": "Khulna",
+    "districts": [
+      { "name": "Khulna", "lat": 22.8456, "lng": 89.5403 },
+      { "name": "Jessore", "lat": 23.1664, "lng": 89.2089 },
+      { "name": "Satkhira", "lat": 22.7185, "lng": 89.0700 },
+      { "name": "Bagerhat", "lat": 22.6580, "lng": 89.7850 },
+      { "name": "Chuadanga", "lat": 23.6345, "lng": 88.8539 },
+      { "name": "Meherpur", "lat": 23.7280, "lng": 88.6417 },
+      { "name": "Narail", "lat": 23.1667, "lng": 89.5311 },
+      { "name": "Kushtia", "lat": 23.9013, "lng": 89.1193 }
+    ]
+  },
+  {
+    "division": "Rajshahi",
+    "districts": [
+      { "name": "Rajshahi", "lat": 24.3740, "lng": 88.6011 },
+      { "name": "Chapainawabganj", "lat": 24.5965, "lng": 88.2773 },
+      { "name": "Naogaon", "lat": 24.8321, "lng": 88.9568 },
+      { "name": "Natore", "lat": 24.4206, "lng": 89.0001 },
+      { "name": "Pabna", "lat": 24.0067, "lng": 89.2428 },
+      { "name": "Bogra", "lat": 24.8500, "lng": 89.3700 },
+      { "name": "Joypurhat", "lat": 25.0947, "lng": 89.0239 },
+      { "name": "Sirajganj", "lat": 24.4513, "lng": 89.7000 }
+    ]
+  },
+  {
+    "division": "Barishal",
+    "districts": [
+      { "name": "Barishal", "lat": 22.7010, "lng": 90.3535 },
+      { "name": "Bhola", "lat": 22.6859, "lng": 90.6480 },
+      { "name": "Patuakhali", "lat": 22.3596, "lng": 90.3290 },
+      { "name": "Pirojpur", "lat": 22.5780, "lng": 89.9750 },
+      { "name": "Jhalokathi", "lat": 22.6744, "lng": 90.2039 },
+      { "name": "Barishal", "lat": 22.7010, "lng": 90.3535 },
+      { "name": "Barguna", "lat": 22.1942, "lng": 90.1971 },
+      { "name": "Bhola", "lat": 22.6859, "lng": 90.6480 }
+    ]
+  },
+  {
+    "division": "Sylhet",
+    "districts": [
+      { "name": "Sylhet", "lat": 24.8949, "lng": 91.8687 },
+      { "name": "Moulvibazar", "lat": 24.4829, "lng": 91.7774 },
+      { "name": "Habiganj", "lat": 24.3740, "lng": 91.4155 },
+      { "name": "Sunamganj", "lat": 25.0658, "lng": 91.3950 }
+    ]
+  },
+  {
+    "division": "Rangpur",
+    "districts": [
+      { "name": "Rangpur", "lat": 25.7439, "lng": 89.2752 },
+      { "name": "Dinajpur", "lat": 25.6279, "lng": 88.6332 },
+      { "name": "Thakurgaon", "lat": 26.0330, "lng": 88.4690 },
+      { "name": "Panchagarh", "lat": 26.3350, "lng": 88.5561 },
+      { "name": "Kurigram", "lat": 25.8054, "lng": 89.6362 },
+      { "name": "Nilphamari", "lat": 25.9343, "lng": 88.8319 },
+      { "name": "Lalmonirhat", "lat": 25.9847, "lng": 89.1486 },
+      { "name": "Gaibandha", "lat": 25.6333, "lng": 89.5886 }
+    ]
+  },
+  {
+    "division": "Mymensingh",
+    "districts": [
+      { "name": "Mymensingh", "lat": 24.7471, "lng": 90.4203 },
+      { "name": "Jamalpur", "lat": 24.9375, "lng": 89.9373 },
+      { "name": "Sherpur", "lat": 25.0188, "lng": 90.0179 },
+      { "name": "Netrokona", "lat": 24.8839, "lng": 90.7282 }
+    ]
+  }
 ]
-
-

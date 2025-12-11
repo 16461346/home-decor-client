@@ -1,50 +1,161 @@
-import { Dialog, DialogTitle, DialogPanel } from '@headlessui/react'
+import { Dialog, DialogPanel, DialogTitle } from "@headlessui/react";
+import { useState } from "react";
+
 const BecomeSellerModal = ({ closeModal, isOpen }) => {
+  // Hard-coded service data
+  const serviceData = {
+    name: "Luxury Home Decoration",
+    category: "Home Decor",
+    cost: 12000,
+  };
+
+  const districts = [
+    "Dhaka",
+    "Chattogram",
+    "Khulna",
+    "Barishal",
+    "Sylhet",
+    "Rajshahi",
+    "Rangpur",
+    "Mymensingh",
+    "Bogra",
+    "Comilla",
+    "Jessore",
+    "Patuakhali",
+    "Cox's Bazar",
+    "Tangail",
+    "Narail",
+    "Feni",
+    "Narsingdi",
+    "Barguna",
+    "Habiganj",
+    "Noakhali",
+    "Meherpur",
+    "Munshiganj",
+    "Shariatpur",
+    "Lakshmipur",
+    "Magura",
+    "Pabna",
+    "Kushtia",
+    "Sunamganj",
+    "Brahmanbaria",
+    "Jhenaidah",
+    "Sirajganj",
+    "Madaripur",
+  ];
+
+  const [bookingDate, setBookingDate] = useState("");
+  const [selectedLocation, setSelectedLocation] = useState("");
+
   return (
     <Dialog
       open={isOpen}
-      as='div'
-      className='relative z-10 focus:outline-none '
-      onClose={close}
+      as="div"
+      className="relative z-50 focus:outline-none"
+      onClose={closeModal}
     >
-      <div className='fixed inset-0 z-10 w-screen overflow-y-auto'>
-        <div className='flex min-h-full items-center justify-center p-4'>
-          <DialogPanel
-            transition
-            className='w-full max-w-md bg-white p-6 backdrop-blur-2xl duration-300 ease-out data-closed:transform-[scale(95%)] data-closed:opacity-0 shadow-xl rounded-2xl'
-          >
-            <DialogTitle
-              as='h3'
-              className='text-lg font-medium text-center leading-6 text-gray-900'
+      {/* Backdrop */}
+      <div
+        className="fixed inset-0 bg-black/40 backdrop-blur-sm"
+        aria-hidden="true"
+      />
+
+      <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+        <DialogPanel className="w-full max-w-md bg-gray-900 px-8 py-6 rounded-2xl shadow-2xl duration-300 ease-out">
+          {/* Title */}
+          <DialogTitle className="text-2xl font-extrabold text-center mb-4 text-white tracking-wide underline underline-offset-4 decoration-primary">
+            Review Before Booking
+          </DialogTitle>
+
+          {/* Info Section */}
+          <div className="space-y-4 mt-4">
+            <p className="text-gray-200 text-lg font-semibold">
+              Decoration
+              <span className="ml-2 text-primary font-bold px-2 py-0.5 bg-primary/20 rounded-md">
+                {serviceData.name}
+              </span>
+            </p>
+
+            <p className="text-gray-200 text-lg font-semibold">
+              Category
+              <span className="ml-2 text-pink-300 font-bold px-2 py-0.5 bg-pink-600/20 rounded-md">
+                {serviceData.category}
+              </span>
+            </p>
+
+            <p className="text-gray-200 text-lg font-semibold">
+              Total Cost
+              <span className="ml-2 text-green-300 font-extrabold px-2 py-0.5 bg-red-200/20 rounded-md">
+                {serviceData.cost} BDT
+              </span>
+            </p>
+
+            {/* Booking Inputs */}
+            <div className="flex flex-col gap-4 mt-4">
+              {/* Date */}
+              <div className="flex flex-col">
+                <label className="text-gray-200 font-semibold mb-1">
+                  Booking Date
+                </label>
+                <input
+                  type="date"
+                  value={bookingDate}
+                  onChange={(e) => setBookingDate(e.target.value)}
+                  className="w-full border border-gray-300 rounded-md p-2 outline-none focus:border-primary focus:ring-0 text-black bg-white"
+                />
+              </div>
+
+              {/* District */}
+              <div className="flex flex-col">
+                <label className="text-gray-200 font-semibold mb-1">
+                  District
+                </label>
+                <select
+                  value={selectedLocation}
+                  onChange={(e) => setSelectedLocation(e.target.value)}
+                  className="w-full border border-gray-300 rounded-md p-2 outline-none focus:border-primary focus:ring-0 text-black bg-white"
+                >
+                  <option value="">Select District</option>
+                  {districts.map((dist, i) => (
+                    <option key={i} value={dist}>
+                      {dist}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
+          </div>
+
+          {/* Buttons */}
+          <div className="flex mt-6 justify-between gap-2">
+            <button
+              type="button"
+              className="w-[48%] py-3 rounded-xl bg-blue-500 hover:bg-blue-600 text-white font-bold shadow-md transition"
+              onClick={() =>
+                console.log({
+                  selectedLocation,
+                  bookingDate,
+                  service: serviceData.name,
+                  category: serviceData.category,
+                  cost: serviceData.cost,
+                })
+              }
             >
-              Become A Seller!
-            </DialogTitle>
-            <div className='mt-2'>
-              <p className='text-sm text-gray-500'>
-                Please read all the terms & conditions before becoming a seller.
-              </p>
-            </div>
-            <hr className='mt-8 ' />
-            <div className='flex mt-2 justify-around'>
-              <button
-                type='button'
-                className='cursor-pointer inline-flex justify-center rounded-md border border-transparent bg-green-100 px-4 py-2 text-sm font-medium text-green-900 hover:bg-green-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-2'
-              >
-                Continue
-              </button>
-              <button
-                type='button'
-                className='cursor-pointer inline-flex justify-center rounded-md border border-transparent bg-red-100 px-4 py-2 text-sm font-medium text-red-900 hover:bg-red-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2'
-                onClick={closeModal}
-              >
-                Cancel
-              </button>
-            </div>
-          </DialogPanel>
-        </div>
+              Process
+            </button>
+
+            <button
+              type="button"
+              onClick={closeModal}
+              className="w-[48%] py-3 rounded-xl bg-red-500 hover:bg-red-600 text-white font-bold shadow-md transition"
+            >
+              Cancel
+            </button>
+          </div>
+        </DialogPanel>
       </div>
     </Dialog>
-  )
-}
+  );
+};
 
-export default BecomeSellerModal
+export default BecomeSellerModal;

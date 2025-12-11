@@ -23,10 +23,10 @@ const Sidebar = ({ sidebarOpen, closeSidebar }) => {
           {/* Menu Items */}
           <div className="flex-1 mt-4">
             <nav>
-              <MenuItem icon={BsGraphUp} label="Statistics" address="/dashboard" />
+              {/* <MenuItem icon={BsGraphUp} label="Statistics" address="/dashboard" /> */}
               <CustomerMenu />
-              <SellerMenu />
-              <AdminMenu />
+              {/* <SellerMenu /> */}
+              {/* <AdminMenu /> */}
             </nav>
           </div>
 

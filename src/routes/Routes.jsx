@@ -19,6 +19,7 @@ import Contact from "../pages/PublicPages/Contact";
 import Covarage from "../pages/Covarage/Coverage";
 import Coverage from "../pages/Covarage/Coverage";
 import MyBooking from "../pages/Dashboard/Customer/MyBooking";
+import PaymentHistory from "../pages/Dashboard/Customer/PaymentHistory";
 
 export const router = createBrowserRouter([
   {
@@ -34,6 +35,7 @@ export const router = createBrowserRouter([
       {
         path: "/service/:id",
         element: <PlantDetails />,
+        loader:()=>fetch('/coverage.json').then(res=>res.json())
       },
       {
         path: "/services",
@@ -112,6 +114,14 @@ export const router = createBrowserRouter([
             <MyBooking/>
           </PrivateRoute>
         ),
+      },
+      {
+        path:'payment-history',
+        element:(
+          <PrivateRoute>
+            <PaymentHistory/>
+          </PrivateRoute>
+        )
       },
       {
         path: "manage-orders",

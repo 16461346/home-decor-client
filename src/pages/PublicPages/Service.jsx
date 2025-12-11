@@ -4,58 +4,61 @@ import Card from "../../components/Home/Card";
 import { useLoaderData } from "react-router";
 
 const Service = () => {
-  const  servicesData =useLoaderData()
-  console.log(servicesData);
+  const servicesData = useLoaderData();
 
   // States
   const [searchText, setSearchText] = useState("");
   const [sortType, setSortType] = useState("default");
+  const [category, setCategory] = useState("");
   const [services, setServices] = useState([]);
 
   // Load default data
   useEffect(() => {
     setServices(servicesData);
-  }, []);
+  }, [servicesData]);
 
-  // Search filter
+  // Filtering + Sorting
   useEffect(() => {
-    let filtered = servicesData.filter((service) =>
-      service.name.toLowerCase().includes(searchText.toLowerCase())
-    );
+    let filtered = servicesData;
 
-    // sort applied after search
+    // Search Filter
+    if (searchText.trim() !== "") {
+      filtered = filtered.filter((s) =>
+        s.name.toLowerCase().includes(searchText.trim().toLowerCase())
+      );
+    }
+
+    // Category Filter
+    if (category !== "") {
+      filtered = filtered.filter((s) => s.category === category);
+    }
+
+    // Sorting
+    // Sorting
     if (sortType === "price-low-high") {
-      filtered = filtered.sort((a, b) => a.price - b.price);
+      filtered = filtered.slice().sort((a, b) => a.cost - b.cost);
     } else if (sortType === "price-high-low") {
-      filtered = filtered.sort((a, b) => b.price - a.price);
+      filtered = filtered.slice().sort((a, b) => b.cost - a.cost);
     }
 
     setServices(filtered);
-  }, [searchText, sortType]);
+  }, [searchText, sortType, category]);
 
   return (
     <Container>
       {/* Header Section */}
-      <div
-        className="mt-10 flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4"
-        data-aos="fade-down"
-        data-aos-duration="800"
-      >
+      <div className="mt-6" data-aos="fade-down" data-aos-duration="800">
         <h2 className="text-xl sm:text-2xl font-semibold text-center sm:text-left tracking-wide">
-         Available Decorations ({services.length})
+          Available Decorations ({services.length})
         </h2>
+      </div>
 
-        {/* Search + Sort */}
-        <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 w-full sm:w-auto">
-
+      <div className="md:mt-10 mt-4   items-center  md:flex  flex justify-between sm:flex-row sm:justify-between sm:items-center gap-4">
+        <div className="pl-4 mt-4 md:mt-0 w-1/3 sm:w-64 md:w-80 h-8 ">
           {/* Search Box */}
-          <label
-            className="flex items-center border border-gray-300 rounded-xl px-3 py-2 bg-white shadow-sm hover:shadow-md transition-all duration-300 w-full sm:w-64 md:w-80"
-            data-aos="zoom-in"
-            data-aos-duration="900"
-          >
+          <label className="flex items-center  border border-primary rounded-xl px-2 sm:px-3 sm:h-10 bg-white shadow-sm hover:shadow-md transition-all duration-300">
             <svg
-              className="h-5 w-5 opacity-50 mr-2"
+              className="h-4 w-4 sm:h-5 sm:w-5 opacity-50 mr-2"
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
             >
@@ -73,41 +76,61 @@ const Service = () => {
             <input
               type="search"
               placeholder="Search services..."
-              className="outline-none w-full text-gray-700"
+              className="outline-none w-full text-sm sm:text-base text-gray-700"
               value={searchText}
               onChange={(e) => setSearchText(e.target.value)}
             />
           </label>
+        </div>
 
-          {/* Sort Dropdown */}
-          <select
-            className="border border-gray-300 rounded-xl px-3 py-2 bg-white shadow-sm hover:shadow-md cursor-pointer transition-all duration-300"
-            data-aos="zoom-in"
-            data-aos-duration="1000"
-            value={sortType}
-            onChange={(e) => setSortType(e.target.value)}
-          >
-            <option value="default">Sort By</option>
-            <option value="price-low-high">Price: Low → High</option>
-            <option value="price-high-low">Price: High → Low</option>
-          </select>
+        {/*sort funtonality */}
+        <div className="items-center rounded-xl px-3  bg-white shadow-sm hover:shadow-md transition-all duration-300 w-1/3 sm:w-64 md:w-60">
+          {/* Category Dropdown */}
+          <div className="w-full sm:w-64 md:w-full">
+            <select
+              className="select h-4 md:h-9 w-full text-sm sm:text-base mt-1 outline-0 border border-gray-300 rounded-md focus:border-primary focus:ring-0 focus:ring-primary"
+              value={category}
+              onChange={(e) => setCategory(e.target.value)}
+            >
+              <option value="">All</option>
+              <option value="home">Home Decoration</option>
+              <option value="wedding">Wedding Decoration</option>
+              <option value="office">Office / Corporate</option>
+              <option value="ceremony">Ceremony</option>
+              <option value="event">Event / Birthday</option>
+            </select>
+          </div>
+
+          {/* Sort */}
+          <div className="w-full sm:w-64 md:w-full">
+            <select
+              className="select h-4 md:h-9  w-full text-sm sm:text-base mt-1 outline-0 border border-gray-300 rounded-md focus:border-primary focus:ring-0 focus:ring-primary"
+              value={sortType}
+              onChange={(e) => setSortType(e.target.value)}
+            >
+              <option value="default">Default</option>
+              <option value="price-low-high">Price: Low → High</option>
+              <option value="price-high-low">Price: High → Low</option>
+            </select>
+          </div>
         </div>
       </div>
 
-      {/* Cards Section */}
-      <div className="pt-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-3 2xl:grid-cols-6 gap-6 sm:gap-8">
-        {services.map((service, i) => (
-          <div
-            key={service.id}
-            data-aos="fade-up"
-            data-aos-duration="700"
-            data-aos-delay={i * 80}
-            className="transform hover:-translate-y-1 hover:shadow-2xl transition-all duration-300"
-          >
-            <Card data={service} />
-          </div>
-        ))}
-      </div>
+      {/* Services Grid */}
+  <div className="md:pt-12 grid grid-cols-1 md:grid-cols-3  gap-6 sm:gap-8">
+  {services.map((service, i) => (
+    <div
+      key={service.id}
+      data-aos="fade-up"
+      data-aos-duration="700"
+      data-aos-delay={i * 80}
+      className="transform hover:-translate-y-1 hover:shadow-2xl transition-all duration-300"
+    >
+      <Card data={service} />
+    </div>
+  ))}
+</div>
+
     </Container>
   );
 };

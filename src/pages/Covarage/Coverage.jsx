@@ -7,18 +7,25 @@ import { FaMapMarkerAlt } from "react-icons/fa";
 
 const Coverage = () => {
   const position = [23.8103, 90.4125];
-  const covarege = useLoaderData();
+  const covarege = useLoaderData(); // LoaderData থেকে JSON
   const mapRef = useRef(null);
 
+  // Search function
   const handleSarch = (e) => {
     e.preventDefault();
-    const location = e.target.location.value;
-    const district = covarege.find((centert) =>
-      centert.name.toLowerCase().includes(location.toLowerCase())
-    );
+    const location = e.target.location.value.toLowerCase();
 
-    if (district) {
-      const sarchDistrict = [district.lat, district.lng];
+    // সব division-এর সব district-এ খুঁজবে
+    let districtFound = null;
+    for (let division of covarege) {
+      districtFound = division.districts.find((district) =>
+        district.name.toLowerCase().includes(location)
+      );
+      if (districtFound) break;
+    }
+
+    if (districtFound) {
+      const sarchDistrict = [districtFound.lat, districtFound.lng];
       mapRef.current.flyTo(sarchDistrict, 14);
     }
   };
@@ -26,18 +33,18 @@ const Coverage = () => {
   return (
     <Container>
       <div className="my-6">
+        {/* Header */}
         <div className="text-center">
-          <h1 className="text-center text-2xl font-semibold">
-            Where we provide services !
-          </h1>
+          <h1 className="text-2xl font-semibold">Where we provide services!</h1>
           <p>
             Enter the name of your district in the box and see the decoration
             center nearest to you.
           </p>
         </div>
 
+        {/* Search Form */}
         <div className="mt-6">
-          <form onSubmit={handleSarch}>
+          <form className="flex items-center" onSubmit={handleSarch}>
             <label className="input my-6">
               <svg
                 className="h-[1em] opacity-50"
@@ -64,50 +71,61 @@ const Coverage = () => {
             </label>
             <button className="btn bg-secondary ml-2">Sarch</button>
           </form>
+
+          {/* Map */}
           <MapContainer
             center={position}
             zoom={8}
             style={{ height: "500px", width: "100%" }}
             ref={mapRef}
+            className="mt-6"
           >
             <TileLayer
               attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
-
-            {covarege.map((center, i) => (
-              <Marker key={i} position={[center.lat, center.lng]}>
-                <Popup>
-                  {" "}
-                  <p>
-                    <strong>{center.name}</strong>
-                    <br />
-                    {center.address}
-                  </p>
-                </Popup>
-              </Marker>
-            ))}
+            {covarege.map((division) =>
+              division.districts.map((district, i) => (
+                <Marker key={i} position={[district.lat, district.lng]}>
+                  <Popup>
+                    <strong>{district.name}</strong>
+                  </Popup>
+                </Marker>
+              ))
+            )}
           </MapContainer>
         </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mt-6">
-  {covarege.map((center, i) => (
-    <div
-      key={i}
-      className="flex items-start p-4 border rounded-xl shadow hover:shadow-lg transition bg-white"
-    >
-      {/* Icon */}
-      <div className="text-secondary mt-1 mr-3">
-        <FaMapMarkerAlt size={24} />
-      </div>
 
-      {/* Name & Address */}
-      <div>
-        <h3 className="font-semibold text-lg text-gray-800">{center.name}</h3>
-        <p className="text-gray-600 text-sm mt-1">{center.address}</p>
-      </div>
-    </div>
-  ))}
-</div>
+        {/* District Grid */}
+        <div className="mt-6 space-y-8">
+          {covarege.map((division, i) => (
+            <div key={i}>
+              <h2 className="text-xl font-bold mb-4">
+                {division.division} Division
+              </h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                {division.districts.map((district, j) => (
+                  <div
+                    key={j}
+                    className="flex items-start p-4 border rounded-xl shadow hover:shadow-lg transition bg-white"
+                  >
+                    <div className="text-secondary mt-1 mr-3">
+                      <FaMapMarkerAlt size={24} />
+                    </div>
+                    <div>
+                      <h3 className="font-semibold text-lg text-gray-800">
+                        {district.name}
+                      </h3>
+                      <p className="text-gray-600 text-sm mt-1">
+                        {district.address || "No address provided"}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </Container>
   );
