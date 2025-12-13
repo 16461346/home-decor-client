@@ -26,7 +26,7 @@ const CustomerMenu = () => {
 
       <div
         onClick={() => setIsOpen(true)}
-        className="flex items-center px-4 py-2 mt-5 transition-colors duration-300 transform text-base-content hover:bg-base-200 cursor-pointer rounded-lg"
+        className="flex items-center px-4 hover:bg-primary py-2 transition-colors duration-300 transform text-base-content cursor-pointer rounded-lg"
       >
         <MdOutlineSendTimeExtension className="w-5 h-5" />
         <span className="mx-4 font-medium">Request a Decorator</span>

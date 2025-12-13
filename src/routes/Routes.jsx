@@ -30,22 +30,22 @@ export const router = createBrowserRouter([
       {
         path: "/",
         element: <Home />,
-        loader:()=>fetch('/fackCard.json').then(res=>res.json())
+        loader: () => fetch("/fackCard.json").then((res) => res.json()),
       },
       {
         path: "/service/:id",
         element: <PlantDetails />,
-        loader:()=>fetch('/coverage.json').then(res=>res.json())
+        loader: () => fetch("/coverage.json").then((res) => res.json()),
       },
       {
         path: "/services",
         element: <Service />,
-        loader:()=>fetch('/fackCard.json').then(res=>res.json())
+        loader: () => fetch("/fackCard.json").then((res) => res.json()),
       },
       {
-        path: '/coverage',
-        element:<Coverage/>,
-        loader: ()=>fetch('/coverage.json').then(res=>res.json())
+        path: "/coverage",
+        element: <Coverage />,
+        loader: () => fetch("/coverage.json").then((res) => res.json()),
       },
       {
         path: "/aboute",
@@ -66,7 +66,7 @@ export const router = createBrowserRouter([
         <DashboardLayout />
       </PrivateRoute>
     ),
-    loader: ()=>fetch('/coverage.json').then(res=>res.json()),
+    loader: () => fetch("/coverage.json").then((res) => res.json()),
     children: [
       {
         index: true,
@@ -77,7 +77,7 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path: "add-plant",
+        path: "add-decoration",
         element: (
           <PrivateRoute>
             <AddPlant />
@@ -85,7 +85,7 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path: "my-inventory",
+        path: "my-decoration",
         element: (
           <PrivateRoute>
             <MyInventory />
@@ -112,21 +112,25 @@ export const router = createBrowserRouter([
         path: "my-booking",
         element: (
           <PrivateRoute>
-            <MyBooking/>
+            <MyBooking />
           </PrivateRoute>
         ),
       },
       {
-        path:'payment-history',
-        element:(
+        path: "payment-history",
+        element: (
           <PrivateRoute>
-            <PaymentHistory/>
+            <PaymentHistory />
           </PrivateRoute>
-        )
+        ),
       },
       {
-        path: "manage-orders",
-        element: <ManageOrders />,
+        path: "manage-booking",
+        element: (
+          <PrivateRoute>
+            <ManageOrders />
+          </PrivateRoute>
+        ),
       },
     ],
   },

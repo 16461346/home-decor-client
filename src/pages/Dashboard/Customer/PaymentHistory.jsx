@@ -24,7 +24,7 @@ const PaymentHistory = () => {
               <td>$ 745</td>
               <td>Paid/Canceled</td>
               <td>
-                <button className="ml-2 text-primary hover:text-primary-focus transition-colors">
+                <button className="ml-2  transition-colors">
                   <FaEye size={18} />
                 </button>
               </td>

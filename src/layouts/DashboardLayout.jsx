@@ -13,7 +13,7 @@ const DashboardLayout = () => {
   const closeSidebar = () => setSidebarOpen(false);
 
   return (
-    <div className="relative min-h-screen md:flex bg-white">
+    <div className="relative min-h-screen md:flex bg-base-100">
       {/* TopBar receives toggle function */}
       <TopBar toggleSidebar={toggleSidebar} />
 

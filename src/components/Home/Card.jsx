@@ -6,8 +6,7 @@ const Card = ({ data }) => {
       to={`/service/${data?.id}`}
       className="col-span-1 cursor-pointer group shadow-xl p-3 rounded-xl"
     >
-      <div className="relative pb-4 w-full rounded-xl bg-white bg-clip-border text-gray-700 shadow-lg">
-        
+      <div className="relative pb-4 w-full rounded-xl  bg-base-100 bg-clip-border text-gray-700 shadow-lg">
         {/* IMAGE */}
         <div className="relative mx-4 mt-4 overflow-hidden rounded-t-xl bg-blue-gray-500 h-48 sm:h-56 md:h-64 lg:h-72">
           <img
@@ -24,22 +23,20 @@ const Card = ({ data }) => {
         <div className="p-6 flex flex-col flex-grow">
           <div className="mb-3 flex items-center justify-between">
             <h5 className="block font-bold text-xl text-blue-gray-900">
-  {data?.name.split(" ").slice(0, 5).join(" ")}
-  {data?.name.split(" ").length > 5 ? "..." : ""}
+              {data?.name.split(" ").slice(0, 5).join(" ")}
+              {data?.name.split(" ").length > 5 ? "..." : ""}
 
-  <span className="text-green-700 text-xs border px-1 rounded-2xl ml-1">
-    {data?.category || "N/A"}
-  </span>
-</h5>
+              <span className="text-green-700 text-xs border px-1 rounded-2xl ml-1">
+                {data?.category || "N/A"}
+              </span>
+            </h5>
 
             <p className="flex items-center gap-1.5 text-blue-gray-900">
               ⭐ {data?.rating}
             </p>
           </div>
 
-          <h3 className="font-bold text-xl mb-2">
-            Total Cost : ${data?.cost}
-          </h3>
+          <h3 className="font-bold text-xl mb-2">Total Cost : ${data?.cost}</h3>
 
           {/* DESCRIPTION — AUTO GROW SPACE */}
           <p className="text-base text-gray-700 flex-grow">
@@ -63,7 +60,6 @@ const Card = ({ data }) => {
             Detail's more
           </button>
         </div>
-
       </div>
     </Link>
   );

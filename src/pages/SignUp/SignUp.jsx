@@ -3,6 +3,8 @@ import { FcGoogle } from "react-icons/fc";
 import useAuth from "../../hooks/useAuth";
 import { toast } from "react-hot-toast";
 import { TbFidgetSpinner } from "react-icons/tb";
+import { useForm } from "react-hook-form";
+import { imageUpload } from "../../Utils";
 
 const SignUp = () => {
   const { createUser, updateUserProfile, signInWithGoogle, loading } =
@@ -11,23 +13,26 @@ const SignUp = () => {
   const location = useLocation();
   const from = location.state || "/";
 
-  // form submit handler
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    const form = event.target;
-    const name = form.name.value;
-    const email = form.email.value;
-    const password = form.password.value;
+  //React Hook From
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  const onSubmit = async (data) => {
+    const { name, email, password, image } = data;
+
+    const imageFile = image[0];
 
     try {
+      const imageURL = await imageUpload(imageFile);
+
       //2. User Registration
       const result = await createUser(email, password);
 
       //3. Save username & profile photo
-      await updateUserProfile(
-        name,
-        "https://lh3.googleusercontent.com/a/ACg8ocKUMU3XIX-JSUB80Gj_bYIWfYudpibgdwZE1xqmAGxHASgdvCZZ=s96-c"
-      );
+      await updateUserProfile(name, imageURL);
       console.log(result);
 
       navigate(from, { replace: true });
@@ -53,13 +58,30 @@ const SignUp = () => {
   };
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-200">
-      <div className="flex flex-col max-w-md my-20 shadow-2xl rounded-md sm:p-10 bg-gray-100 text-gray-900">
+      <div
+        className="
+  flex flex-col
+  w-[95%]
+  sm:w-[90%]
+  md:w-[70%]
+  lg:w-[40%]
+  xl:w-[35%]
+  my-20
+  shadow-2xl
+  rounded-md
+  p-6
+  sm:p-8
+  md:p-10
+  bg-gray-100
+  text-gray-900
+"
+      >
         <div className="mb-8 text-center">
           <h1 className="my-3 text-4xl font-bold">Sign Up</h1>
           <p className="text-sm text-gray-400">Welcome to PlantNet</p>
         </div>
         <form
-          onSubmit={handleSubmit}
+          onSubmit={handleSubmit(onSubmit)}
           noValidate=""
           action=""
           className="space-y-6 ng-untouched ng-pristine ng-valid"
@@ -71,12 +93,24 @@ const SignUp = () => {
               </label>
               <input
                 type="text"
-                name="name"
                 id="name"
-                placeholder="Enter Your Name Here"
+                placeholder="Enter name"
                 className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-primary bg-gray-200 text-gray-900"
                 data-temp-mail-org="0"
+                {...register("name", {
+                  required: "Name is required",
+                  minLength: {
+                    value: 6,
+                    message: "name must 6 carecter logn",
+                  },
+                  maxLength: 20,
+                })}
               />
+              {errors.name && (
+                <p className="text-red-500 text-sm mt-1">
+                  {errors.name.message}
+                </p>
+              )}
             </div>
             {/* Image */}
             <div>
@@ -87,7 +121,6 @@ const SignUp = () => {
                 Profile Image
               </label>
               <input
-                name="image"
                 type="file"
                 id="image"
                 accept="image/*"
@@ -100,6 +133,7 @@ const SignUp = () => {
       bg-gray-100 border border-dashed border-fuchsia-600 rounded-md cursor-pointer
       focus:outline-none focus:ring-2 focus:ring-lime-400 focus:border-lime-400
       py-2"
+                {...register("image")}
               />
               <p className="mt-1 text-xs text-gray-500">
                 PNG, JPG or JPEG (max 2MB)
@@ -111,13 +145,23 @@ const SignUp = () => {
               </label>
               <input
                 type="email"
-                name="email"
                 id="email"
-                required
-                placeholder="Enter Your Email Here"
+                placeholder="Enter email"
                 className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-primary bg-gray-200 text-gray-900"
                 data-temp-mail-org="0"
+                {...register("email", {
+                  required: "Email must be required",
+                  pattern: {
+                    value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                    message: "Invalid email address",
+                  },
+                })}
               />
+              {errors.email && (
+                <p className="text-red-500 text-sm mt-1">
+                  {errors.email.message}
+                </p>
+              )}
             </div>
             <div>
               <div className="flex justify-between">
@@ -127,13 +171,32 @@ const SignUp = () => {
               </div>
               <input
                 type="password"
-                name="password"
                 autoComplete="new-password"
                 id="password"
-                required
                 placeholder="*******"
                 className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-primary bg-gray-200 text-gray-900"
+                {...register("password", {
+                  required: "Password must be requred",
+                  minLength: {
+                    value: 6,
+                    message: "Password must be at least 6 characters",
+                  },
+                  maxLength: {
+                    value: 20,
+                    message: "Password must be 20 carecter less then",
+                  },
+                  pattern: {
+                    value: /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d).+$/,
+                    message:
+                      "Password must contain uppercase, lowercase and a number",
+                  },
+                })}
               />
+              {errors.password && (
+                <p className="text-red-500 text-sm mt-1">
+                  {errors.password.message}
+                </p>
+              )}
             </div>
           </div>
 
