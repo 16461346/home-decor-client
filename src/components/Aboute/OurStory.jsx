@@ -5,7 +5,7 @@ const OurStory = () => {
     <section
       data-aos="fade-up"
       data-aos-duration="900"
-      className="py-16 px-4 sm:px-8 lg:px-20 bg-[#FEF9F5]"
+      className="py-16 px-4 sm:px-8 lg:px-20 bg-base-100 text-base-content"
     >
       <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-10">
 
@@ -26,7 +26,7 @@ const OurStory = () => {
           <p
             data-aos="fade-up"
             data-aos-duration="1000"
-            className="text-gray-700 text-sm sm:text-base"
+            className="text-gray-700 dark:text-gray-300 text-sm sm:text-base"
           >
             It all started in 2022, when a small team of passionate designers
             noticed that people’s homes lacked personal touch and modern styling.

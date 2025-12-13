@@ -53,22 +53,24 @@ const OurServices = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6">
           {services.map((service, index) => (
             <div
-            data-aos="zoom-in"
+              data-aos="zoom-in"
               key={index}
-              className="flex flex-col items-center p-5 rounded-lg shadow-lg hover:shadow-xl transition bg-gray-200"
+              className="flex flex-col items-center p-5 rounded-lg shadow-lg hover:shadow-xl transition bg-base-200"
             >
               {/* Circular Icon Box */}
-              <div className="w-24 h-24 flex items-center justify-center rounded-full border-2 border-gray-400 mb-4">
+              <div className="w-24 h-24 flex items-center justify-center rounded-full border-2 border-base-content/30 mb-4">
                 {service.icon}
               </div>
 
               {/* Title */}
-              <h2 className="text-xl font-semibold mb-2 text-center">
+              <h2 className="text-xl text-base-content font-semibold mb-2 text-center">
                 {service.title}
               </h2>
 
               {/* Paragraph */}
-              <p className="text-gray-500 text-center text-sm">{service.p}</p>
+              <p className="text-base-content/70 text-center text-sm">
+                {service.p}
+              </p>
             </div>
           ))}
         </div>

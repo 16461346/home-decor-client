@@ -1,10 +1,11 @@
 import { useState } from "react";
-import logo from "../../../assets/images/Screenshot from 2025-12-07 12-52-30.png";
 import { Link } from "react-router";
 import { AiOutlineBars } from "react-icons/ai";
 import useAuth from "../../../hooks/useAuth";
 import { CgProfile } from "react-icons/cg";
 import { RiLogoutBoxLine, RiSettings3Line } from "react-icons/ri";
+import Logo from "../../Shared/Logo/Logo";
+import ThemeController from "../../../Theme/ThemeController";
 
 const TopBar = ({ toggleSidebar }) => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -14,12 +15,12 @@ const TopBar = ({ toggleSidebar }) => {
   const toggleDropdown = () => setDropdownOpen(!dropdownOpen);
 
   return (
-    <nav className="fixed top-0 z-50 w-full md:px-4 lg:px-4 bg-base-200 border-b border-base-300">
+    <nav className="fixed top-0  z-50 w-full md:px-4 lg:px-4 bg-base-200 border-b border-base-300">
       <div className="px-3 py-3 lg:px-5 lg:pl-3 flex items-center justify-between">
         {/* Logo */}
         <Link to="/dashboard">
-          <div className="bg-white p-2 hidden md:block rounded-full border border-gray-300">
-            <img src={logo} alt="logo" width="60" height="60" />
+          <div className="hidden md:block">
+            <Logo />
           </div>
         </Link>
 
@@ -83,6 +84,9 @@ const TopBar = ({ toggleSidebar }) => {
                   >
                     <RiSettings3Line size={20} /> Settings
                   </a>
+                </li>
+                <li className="pl-2">
+                  <ThemeController />
                 </li>
               </ul>
             </div>

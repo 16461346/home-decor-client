@@ -1,10 +1,11 @@
 import { useState } from "react";
-import { Outlet } from "react-router";
+import { Outlet, useLoaderData } from "react-router";
 import Sidebar from "../components/Dashboard/Sidebar/Sidebar";
 import TopBar from "../components/Dashboard/Navbar/TopBar";
 
 
 const DashboardLayout = () => {
+  const data=useLoaderData()
   // Mobile sidebar state
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
@@ -18,7 +19,7 @@ const DashboardLayout = () => {
 
       {/* Sidebar receives state and close function */}
      <div className="mt-10">
-       <Sidebar sidebarOpen={sidebarOpen} closeSidebar={closeSidebar} />
+       <Sidebar data={data} sidebarOpen={sidebarOpen} closeSidebar={closeSidebar} />
      </div>
 
       {/* Right Side: Dashboard Content */}

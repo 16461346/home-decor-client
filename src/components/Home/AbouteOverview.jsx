@@ -5,11 +5,11 @@ const AbouteOverview = () => {
   const location = useLocation(); // Current URL path
 
   return (
-    <section className="py-10 sm:py-16 px-4 bg-[#FEF9F5]">
+    <section className="py-10 sm:py-16 px-4 bg-base-100">
       <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-10">
 
         {/* LEFT IMAGES */}
-        <div  data-aos="fade-right" className="relative w-full md:w-1/2 flex justify-center items-center h-[300px] sm:h-[380px] md:h-[450px]">
+        <div data-aos="fade-right" className="relative w-full md:w-1/2 flex justify-center items-center h-[300px] sm:h-[380px] md:h-[450px]">
           {/* layer 1 */}
           <img
             src="https://images.unsplash.com/photo-1563906267088-b029e7101114?q=80&w=870"
@@ -31,17 +31,17 @@ const AbouteOverview = () => {
         </div>
 
         {/* TEXT AREA */}
-        <div data-aos='fade-left' className="w-full md:w-1/2 space-y-4 sm:space-y-6 text-center md:text-left">
-          <h2 className="text-2xl sm:text-3xl font-bold">
-            About Our <span className="text-secondary">HomeDecor !</span>
+        <div data-aos="fade-left" className="w-full md:w-1/2 space-y-4 sm:space-y-6 text-center md:text-left">
+          <h2 className="text-2xl sm:text-3xl font-bold text-base-content">
+            About Our <span className="text-secondary">HomeDecor!</span>
           </h2>
 
-          <p className="text-gray-700 text-sm sm:text-base">
+          <p className="text-base-content/80 text-sm sm:text-base">
             Sociable on as carriage my position weddings raillery consider.
             Peculiar trifling absolute and wandered vicinity property yet.
           </p>
 
-          <p className="text-gray-500 text-xs sm:text-sm">
+          <p className="text-base-content/60 text-xs sm:text-sm">
             Started earnest brother believe an exposed so. He believing
             daughters if forfeited at furniture. Age again and stuff downs
             spoke.
@@ -51,7 +51,7 @@ const AbouteOverview = () => {
           {location.pathname === "/" && (
             <Link
               to={"/aboute"}
-              className="bg-primary text-white font-bold px-5 py-2 sm:px-6 sm:py-2 rounded-full hover:bg-secondary transition-all duration-300 inline-block"
+              className="bg-primary text-primary-content font-bold px-5 py-2 sm:px-6 sm:py-2 rounded-full hover:bg-secondary hover:text-secondary-content transition-all duration-300 inline-block"
             >
               Read more...
             </Link>

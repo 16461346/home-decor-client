@@ -5,9 +5,9 @@ const PaymentHistory = () => {
   return (
     <div className="mt-10">
       <div className="overflow-x-auto">
-        <table className="table table-zebra">
+        <table className="table w-full bg-base-100 text-base-content">
           {/* head */}
-          <thead className="text-[18px]">
+          <thead className="bg-base-200 text-base-content text-[18px]">
             <tr>
               <th>Transaction ID</th>
               <th>Payment Date</th>
@@ -16,15 +16,15 @@ const PaymentHistory = () => {
               <th>Actions</th>
             </tr>
           </thead>
-          <tbody className="font-semibold">
+          <tbody className="font-semibold text-base-content">
             {/* row 1 */}
             <tr>
               <td>#JJDFGJKDFKAFD8SAD</td>
-              <td>jun 20 2026</td>
-              <td> $ 745</td>
-              <td>Paid/canceled</td>
+              <td>Jun 20 2026</td>
+              <td>$ 745</td>
+              <td>Paid/Canceled</td>
               <td>
-                <button className="ml-2">
+                <button className="ml-2 text-primary hover:text-primary-focus transition-colors">
                   <FaEye size={18} />
                 </button>
               </td>

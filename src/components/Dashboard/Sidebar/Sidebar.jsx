@@ -8,32 +8,35 @@ import SellerMenu from "./Menu/SellerMenu";
 import CustomerMenu from "./Menu/CustomerMenu";
 import { RiArrowGoBackFill } from "react-icons/ri";
 
-
 const Sidebar = ({ sidebarOpen, closeSidebar }) => {
-
   return (
     <>
       {/* Sidebar */}
       <div
-        className={`z-30 md:z-10 fixed md:fixed flex flex-col justify-between bg-gray-100 w-64 h-screen px-2 py-4 shadow-md transform transition-transform duration-300 ease-in-out ${
+        className={`z-30 md:z-10 fixed md:fixed flex flex-col justify-between bg-base-200 w-64 h-screen px-2 py-4 shadow-md transform transition-transform duration-300 ease-in-out ${
           sidebarOpen ? "translate-x-0" : "-translate-x-full"
         } md:translate-x-0`}
       >
         <div className="flex flex-col h-full">
           {/* Menu Items */}
           <div className="flex-1 mt-4">
-            <nav>
+            <nav className="text-base-content">
               {/* <MenuItem icon={BsGraphUp} label="Statistics" address="/dashboard" /> */}
               <CustomerMenu />
-              {/* <SellerMenu /> */}
-              {/* <AdminMenu /> */}
+              <SellerMenu />
+              <AdminMenu />
             </nav>
           </div>
 
           {/* Bottom Menu */}
-          <div>
-            <hr className="my-3" />
-            <MenuItem  label="Back to Home" icon={RiArrowGoBackFill} address="/" />
+          <div className="mb-8">
+            <hr className="my-3 border-base-300" />
+            <MenuItem
+              label="Back to Home"
+              icon={RiArrowGoBackFill}
+              address="/"
+              className="text-base-content"
+            />
           </div>
         </div>
       </div>

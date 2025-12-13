@@ -5,7 +5,7 @@ const OurMission = () => {
     <div
       data-aos="fade-up"
       data-aos-duration="900"
-      className="my-16 px-4 sm:px-8 lg:px-20"
+      className="my-16 px-4 sm:px-8 lg:px-20 bg-base-100 text-base-content"
     >
       {/* IMAGE GROUP */}
       <div className="flex flex-col md:flex-row gap-4 md:gap-6 w-full mx-auto justify-center items-center">
@@ -40,7 +40,7 @@ const OurMission = () => {
           <p
             data-aos="fade-up-right"
             data-aos-duration="1000"
-            className="bg-blue-300 py-3 px-4 sm:px-6 rounded-lg text-sm sm:text-base"
+            className="bg-primary/20 dark:bg-primary/40 py-3 px-4 sm:px-6 rounded-lg text-sm sm:text-base text-base-content"
           >
             At HomeDecor, our mission is to bring beauty, comfort, and
             personality to every home. We believe every space should reflect
@@ -50,7 +50,7 @@ const OurMission = () => {
           <p
             data-aos="fade-up-left"
             data-aos-duration="1000"
-            className="bg-amber-200 py-3 px-4 sm:px-6 rounded-lg text-sm sm:text-base"
+            className="bg-secondary/20 dark:bg-secondary/40 py-3 px-4 sm:px-6 rounded-lg text-sm sm:text-base text-base-content"
           >
             From personalized consultations to on-site decoration, we aim to
             simplify the home styling process. Our team works closely with

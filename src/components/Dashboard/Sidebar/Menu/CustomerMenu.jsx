@@ -1,33 +1,40 @@
-import {BsCalendarCheckFill } from 'react-icons/bs'
-import { GrUserAdmin } from 'react-icons/gr'
-import MenuItem from './MenuItem'
-import { useState } from 'react'
-import BecomeSellerModal from '../../../Modal/BecomeSellerModal'
-import { MdOutlinePayments, MdOutlineSendTimeExtension } from 'react-icons/md'
+import { BsCalendarCheckFill } from "react-icons/bs";
+import { GrUserAdmin } from "react-icons/gr";
+import MenuItem from "./MenuItem";
+import { useState } from "react";
+import BecomeSellerModal from "../../../Modal/BecomeSellerModal";
+import { MdOutlinePayments, MdOutlineSendTimeExtension } from "react-icons/md";
 const CustomerMenu = () => {
-  const [isOpen, setIsOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState(false);
 
   const closeModal = () => {
-    setIsOpen(false)
-  }
+    setIsOpen(false);
+  };
 
   return (
     <>
-      <MenuItem icon={BsCalendarCheckFill} label='My Booking' address='my-booking' />
-      <MenuItem icon={MdOutlinePayments} label='Payment History' address='payment-history' />
+      <MenuItem
+        icon={BsCalendarCheckFill}
+        label="My Booking"
+        address="my-booking"
+      />
+      <MenuItem
+        icon={MdOutlinePayments}
+        label="Payment History"
+        address="payment-history"
+      />
 
       <div
         onClick={() => setIsOpen(true)}
-        className='flex items-center px-4 py-2 mt-5  transition-colors duration-300 transform text-gray-600  hover:bg-gray-300   hover:text-gray-700 cursor-pointer'
+        className="flex items-center px-4 py-2 mt-5 transition-colors duration-300 transform text-base-content hover:bg-base-200 cursor-pointer rounded-lg"
       >
-        <MdOutlineSendTimeExtension className='w-5 h-5' />
-
-        <span className='mx-4 font-medium'>Request a Decorator</span>
+        <MdOutlineSendTimeExtension className="w-5 h-5" />
+        <span className="mx-4 font-medium">Request a Decorator</span>
       </div>
 
       <BecomeSellerModal closeModal={closeModal} isOpen={isOpen} />
     </>
-  )
-}
+  );
+};
 
-export default CustomerMenu
+export default CustomerMenu;

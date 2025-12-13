@@ -7,7 +7,7 @@ const Profile = () => {
 
   return (
     <div className="flex  justify-center items-center h-screen">
-     <div className="bg-white  rounded-2xl md:w-4/5 lg:w-3/8
+     <div className=" bg-gradient-to-r from-cyan-300 to-lime-200 rounded-2xl md:w-4/5 lg:w-3/8
                 shadow-lg ">
         <img
           alt="cover photo"
@@ -40,13 +40,13 @@ const Profile = () => {
                 </h2>
                 <h2 className="text-xl font-bold">
                   Email :{" "}
-                  <span className="font-bold text-red-400 ">
+                  <span className="font-bold text-red-500 ">
                     {user?.email}
                   </span>
                 </h2>
                 <h2 className="text-xl font-bold">
                   Role :{" "}
-                  <span className=" text-secondary font-bold  ">
+                  <span className=" text-indigo-600 font-bold  ">
                     Customer
                   </span>
                 </h2>
@@ -55,13 +55,13 @@ const Profile = () => {
 
               <div className="flex  gap-4 mt-4 w-full">
                 <button
-                  className="w-full h-12 bg-primary  text-gray-700 rounded-lg font-semibold  hover:text-white
+                  className="w-full h-12 bg-primary  text-black rounded-lg font-semibold  hover:text-white
                      hover:bg-blue-500 hover:scale-105 transform transition duration-300 ease-in-out"
                 >
                   Profile update
                 </button>
                 <button
-                  className="w-full h-12 bg-primary  text-gray-700 rounded-lg font-semibold  hover:text-white
+                  className="w-full h-12 bg-primary  text-black rounded-lg font-semibold  hover:text-white
                      hover:bg-blue-500 hover:scale-105 transform transition duration-300 ease-in-out"
                 >
                   Change password

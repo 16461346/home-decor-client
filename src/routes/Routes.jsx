@@ -66,6 +66,7 @@ export const router = createBrowserRouter([
         <DashboardLayout />
       </PrivateRoute>
     ),
+    loader: ()=>fetch('/coverage.json').then(res=>res.json()),
     children: [
       {
         index: true,
