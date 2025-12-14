@@ -7,7 +7,7 @@ const CustomerOrderDataRow = () => {
 
   return (
     <tr>
-      <td className='px-5 py-5 border-b border-base-300 bg-base-100 text-sm'>
+      <td className='px-5 py-5 border-b border-base-300 bg-base-200 text-sm'>
         <div className='flex items-center'>
           <div className='shrink-0'>
             <div className='block relative'>
@@ -21,27 +21,27 @@ const CustomerOrderDataRow = () => {
         </div>
       </td>
 
-      <td className='px-5 py-5 border-b border-base-300 bg-base-100 text-sm'>
+      <td className='px-5 py-5 border-b border-base-300 bg-base-200 text-sm'>
         <p className='text-base-content'>Money Plant</p>
       </td>
 
-      <td className='px-5 py-5 border-b border-base-300 bg-base-100 text-sm'>
+      <td className='px-5 py-5 border-b border-base-300 bg-base-200 text-sm'>
         <p className='text-base-content'>Indoor</p>
       </td>
 
-      <td className='px-5 py-5 border-b border-base-300 bg-base-100 text-sm'>
+      <td className='px-5 py-5 border-b border-base-300 bg-base-200 text-sm'>
         <p className='text-base-content'>$120</p>
       </td>
 
-      <td className='px-5 py-5 border-b border-base-300 bg-base-100 text-sm'>
+      <td className='px-5 py-5 border-b border-base-300 bg-base-200 text-sm'>
         <p className='text-base-content'>5</p>
       </td>
 
-      <td className='px-5 py-5 border-b border-base-300 bg-base-100 text-sm'>
+      <td className='px-5 py-5 border-b border-base-300 bg-base-200 text-sm'>
         <p className='text-base-content'>Pending</p>
       </td>
 
-      <td className='px-5 py-5 border-b border-base-300 bg-base-100 text-sm'>
+      <td className='px-5 py-5 border-b border-base-300 bg-base-200 text-sm'>
         <button
           onClick={() => setIsOpen(true)}
           className='relative disabled:cursor-not-allowed cursor-pointer inline-block px-3 py-1 font-semibold  leading-tight'

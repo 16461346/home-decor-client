@@ -3,14 +3,57 @@ import { imageUpload } from "../../Utils";
 import useAuth from "../../hooks/useAuth";
 import Swal from "sweetalert2";
 import axios from "axios";
+import { useMutation } from "@tanstack/react-query";
+import ErrorPage from "../../pages/ErrorPage";
+import LoadingSpinner from "../Shared/LoadingSpinner";
+import { TbFidgetSpinner } from "react-icons/tb";
 
 const AddPlantForm = () => {
+  const { user } = useAuth();
+
+  //useMutation hoke
+  const {
+    isPending,
+    isError,
+    mutateAsync,
+    reset: initialReset,
+  } = useMutation({
+    mutationFn: async (paylod) =>
+      await axios.post(`${import.meta.env.VITE_API_URL}/decorations`, paylod),
+
+    onMutate: (paylod) => {
+      console.log("Admin post this data", paylod);
+    },
+    onSettled: (data, error) => {
+      if (data) {
+        console.log(data);
+        Swal.fire({
+          title: "Decoration added Successfully!",
+          icon: "success",
+          draggable: true,
+        });
+        initialReset();
+      }
+
+      if (error) {
+        console.log(error);
+        Swal.fire({
+          title: "Decoration added Failed",
+          icon: "error",
+          draggable: true,
+        });
+      }
+    },
+    retry: 3,
+  });
+
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm();
-  const { user } = useAuth();
+
   const creatorPhoto = user?.photoURL;
   const creatorEmail = user?.email;
   const creatorName = user?.displayName;
@@ -41,30 +84,18 @@ const AddPlantForm = () => {
         },
       };
 
-      const { data } = await axios.post(
-        `${import.meta.env.VITE_API_URL}/decorations`,
-        DecorationData
-      );
-      console.log(data);
-
-      Swal.fire({
-        title: "Decoration added Successfully!",
-        icon: "success",
-        draggable: true,
-      });
-      
+      await mutateAsync(DecorationData);
+      reset();
     } catch (error) {
       console.log(error);
-      Swal.fire({
-        title: "Decoration added Failed",
-        icon: "error",
-        draggable: true,
-      });
     }
   };
 
+  if (isError) return <ErrorPage />;
+  if (isPending) return <LoadingSpinner />;
+
   return (
-    <div className="w-full mt-10  md:w-full flex flex-col justify-center items-center text-base-content rounded-xl bg-base-100">
+    <div className="w-full mt-10  md:w-full flex flex-col justify-center items-center text-base-content rounded-xl bg-base-200">
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="w-full max-w-4xl p-6 lg:p-10"
@@ -200,7 +231,11 @@ const AddPlantForm = () => {
               type="submit"
               className="w-full cursor-pointer p-3 mt-5 text-center font-medium text-white transition-all duration-200 rounded shadow-md bg-primary hover:bg-primary-focus focus:ring-2 focus:ring-primary"
             >
-              Save & Continue
+              {isPending ? (
+                <TbFidgetSpinner className="animate-spin m-auto" />
+              ) : (
+                "Save & Continue"
+              )}
             </button>
           </div>
         </div>
