@@ -3,10 +3,26 @@ import Container from "../Shared/Container";
 import Banner from "./Banner/Banner";
 import { Link } from "react-router";
 import { IoIosArrowForward } from "react-icons/io";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
+import ErrorPage from "../../pages/ErrorPage";
+import LoadingSpinner from "../Shared/LoadingSpinner";
 
-const Plants = ({ data }) => {
-  const topRated = [...data].sort((a, b) => b.rating - a.rating).slice(0, 3);
+const Plants = () => {
+  const { data:services3=[], isError, isLoading } = useQuery({
+    queryKey: ["services3"],
+    queryFn: async () => {
+      const result = await axios(`${import.meta.env.VITE_API_URL}/decorations`);
+      return result.data;
+    },
+  });
+
+
+  const topRated = [...services3].sort((a, b) => b.rattings - a.rattings).slice(0, 3);
   console.log(topRated);
+
+  if (isError) return <ErrorPage />;
+  if (isLoading) return <LoadingSpinner />;
   return (
     <>
       <Banner />
@@ -54,11 +70,11 @@ const Plants = ({ data }) => {
                         {service?.category || "N/A"}
                       </p>
                       <p className="flex items-center gap-1.5">
-                        ⭐ {service?.rating}
+                        ⭐ {service?.rattings}.0
                       </p>
                     </div>
                     <p className="text-gray-600 text-sm">
-                      {service?.description.split(" ").slice(0, 10).join(" ")}
+                      {service?.description.split(" ").slice(0, 12).join(" ")}
                       ...
                     </p>
                     <Link

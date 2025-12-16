@@ -1,10 +1,28 @@
 import Container from "../../components/Shared/Container";
 import PurchaseModal from "../../components/Modal/PurchaseModal";
 import { useState } from "react";
-import { useLoaderData } from "react-router";
+import { useLoaderData, useParams } from "react-router";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 
 const PlantDetails = () => {
   const data = useLoaderData();
+  const { id } = useParams();
+  console.log(id);
+  const {
+    data: serviceDetails = {},
+    isLoading,
+    refetch,
+  } = useQuery({
+    queryKey: ["serviceDetails", id],
+    queryFn: async () => {
+      const result = await axios.get(
+        `${import.meta.env.VITE_API_URL}/decorations/${id}`
+      );
+      return result.data;
+    },
+  });
+  console.log(serviceDetails);
 
   let [isOpen, setIsOpen] = useState(false);
 
@@ -31,6 +49,15 @@ const PlantDetails = () => {
 
     setSelectedDistrict("");
   };
+  const getRatingLabel = (rating) => {
+    if (!rating || rating === 0) return "No Rating Yet";
+    if (rating >= 5) return "Top Rated";
+    if (rating >= 4.5) return "Excellent";
+    if (rating >= 4) return "Very Good";
+    if (rating >= 3) return "Good";
+    if (rating >= 2) return "Average";
+    return "Poor";
+  };
 
   return (
     <Container>
@@ -39,58 +66,56 @@ const PlantDetails = () => {
           {/* LEFT IMAGE 70% */}
           <div className="w-full p-6 md:w-[65%] h-auto">
             <img
-              src="https://images.pexels.com/photos/2253870/pexels-photo-2253870.jpeg"
+              src={serviceDetails?.image}
               alt="Decoration"
-              className="w-full h-full object-cover rounded-lg"
+              className="w-full h-full  object-cover rounded-lg"
             />
           </div>
 
           {/* RIGHT DETAILS 30% */}
           <div className="w-full md:w-[35%] py-10 pr-4 flex flex-col justify-start">
             <h1 className="text-3xl font-bold text-gray-800 mb-2">
-              Dynamic Title Here{" "}
+              {serviceDetails?.name}
               <span className="text-sm text-green-700 font-bold">
-                Available
+                {serviceDetails?.status}
               </span>
             </h1>
-            <h2 className="mb-3 text-xl font-bold">
+            <h2 className="mb-3 text-xl text-black  font-bold">
               Category:{" "}
-              <span className="text-primary text-lg font-bold">Home Decor</span>
+              <span className="text-primary text-lg font-bold">
+                {serviceDetails?.category}
+              </span>
             </h2>
             <p className="text-sm text-gray-600 mb-4">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi
-              cupiditate fugit maxime numquam modi labore, quia ad accusamus
-              voluptas ullam...afddfsadfsdfdsf
+              {serviceDetails?.description}
             </p>
-
+            
             <div className="flex items-center mb-6">
               <span className="bg-green-500 text-white font-semibold px-2.5 py-0.5 rounded">
-                4.5 ★
+                {serviceDetails?.rattings || 0} ★
               </span>
+
               <span className="text-xs font-bold text-gray-500 ml-2">
-                Top Rated
+                {getRatingLabel(serviceDetails?.rattings)}
               </span>
             </div>
 
             <div className="flex  items-center justify-between mb-2">
               <span className="text-2xl font-bold text-gray-900">
-                Full package price: <span className="text-2xl">$899.00</span>
+                Full package price: <span className="text-2xl">${serviceDetails?.price}</span>
               </span>
             </div>
 
-            <p className="text-sm font-bold text-green-800 mb-5">
-              Work completed within 2 days
-            </p>
+            {/* <p className="text-sm font-bold text-green-800 mb-5"> */}
+              {/* Work completed within 2 days */}
+            {/* </p> */}
             <div>
               <div className="flex flex-col gap-4 mb-14 w-full">
                 {/* Division & District */}
                 <div className="flex  md:flex-row items-center gap-4 w-full">
-                  
-                 
-
                   {/* Division */}
                   <div className="flex flex-col w-full md:w-1/2">
-                    <label className="font-semibold mb-1">Division</label>
+                    <label className="font-semibold text-black mb-1">Division</label>
                     <select
                       value={selectedDivision}
                       onChange={handleDivisionChange}
@@ -106,8 +131,8 @@ const PlantDetails = () => {
                   </div>
 
                   {/* District */}
-                   <div className="flex flex-col w-full md:w-1/2">
-                    <label className="font-semibold mb-1">District</label>
+                  <div className="flex flex-col w-full md:w-1/2">
+                    <label className="font-semibold text-black mb-1">District</label>
                     <select
                       value={selectedDistrict}
                       onChange={(e) => setSelectedDistrict(e.target.value)}
@@ -128,7 +153,7 @@ const PlantDetails = () => {
                 <div className="flex md:flex-row gap-4 mt-4 w-full">
                   {/* Date */}
                   <div className="flex flex-col w-full md:w-1/2">
-                    <label className="font-semibold mb-1">Booking Date</label>
+                    <label className="font-semibold text-black mb-1">Booking Date</label>
                     <input
                       type="date"
                       value={bookingDate}
@@ -139,14 +164,30 @@ const PlantDetails = () => {
 
                   {/* Phone Number */}
                   <div className="flex flex-col w-full md:w-1/2">
-                    <label className="font-semibold mb-1">Phone Number</label>
+                    <label className="font-semibold text-black mb-1">Start Time</label>
+                    <input
+                      type="time"
+                      className="w-full border border-primary rounded-lg p-2 outline-none focus:outline-primary focus:border-primary focus:ring-2 focus:ring-primary/80 text-black bg-white transition"
+                      placeholder="01XXXXXXXXX"
+                    />
+                  </div>
+                  <div className="flex flex-col w-full md:w-1/2">
+                    <label className="font-semibold text-black mb-1">End Time</label>
+                    <input
+                      type="time"
+                      className="w-full border border-primary rounded-lg p-2 outline-none focus:outline-primary focus:border-primary focus:ring-2 focus:ring-primary/80 text-black bg-white transition"
+                      placeholder="01XXXXXXXXX"
+                    />
+                  </div>
+                </div>
+                 <div className="flex flex-col w-full md:w-1/2">
+                    <label className="font-semibold text-black mb-1">Contact Number</label>
                     <input
                       type="number"
                       className="w-full border border-primary rounded-lg p-2 outline-none focus:outline-primary focus:border-primary focus:ring-2 focus:ring-primary/80 text-black bg-white transition"
                       placeholder="01XXXXXXXXX"
                     />
                   </div>
-                </div>
               </div>
             </div>
 

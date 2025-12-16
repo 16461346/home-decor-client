@@ -11,7 +11,7 @@ import { TbFidgetSpinner } from "react-icons/tb";
 const AddPlantForm = () => {
   const { user } = useAuth();
 
-  //useMutation hoke
+  //useMutation hoke data post korar jonno
   const {
     isPending,
     isError,
@@ -62,7 +62,7 @@ const AddPlantForm = () => {
     const { name, category, price, image, description } = data;
     const createdAt = new Date();
     const status = "Available";
-    const rattings = 0;
+    const rattings = 0.0;
 
     const imageFile = image[0];
 

@@ -1,10 +1,23 @@
 import React, { useState, useEffect } from "react";
 import Container from "../../components/Shared/Container";
 import Card from "../../components/Home/Card";
-import { useLoaderData } from "react-router";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
+import ErrorPage from "../ErrorPage";
+import LoadingSpinner from "../../components/Shared/LoadingSpinner";
 
 const Service = () => {
-  const servicesData = useLoaderData();
+  const {
+    data: servicesData = [],
+    isError,
+    isLoading,
+  } = useQuery({
+    queryKey: ["services3"],
+    queryFn: async () => {
+      const result = await axios(`${import.meta.env.VITE_API_URL}/decorations`);
+      return result.data;
+    },
+  });
 
   // States
   const [searchText, setSearchText] = useState("");
@@ -36,80 +49,84 @@ const Service = () => {
     // Sorting
     // Sorting
     if (sortType === "price-low-high") {
-      filtered = filtered.slice().sort((a, b) => a.cost - b.cost);
+      filtered = filtered.slice().sort((a, b) => a.price - b.price);
     } else if (sortType === "price-high-low") {
-      filtered = filtered.slice().sort((a, b) => b.cost - a.cost);
+      filtered = filtered.slice().sort((a, b) => b.price - a.price);
     }
 
     setServices(filtered);
-  }, [searchText, sortType, category]);
+  }, [searchText, sortType, category, servicesData]);
+
+  if (isError) return <ErrorPage />;
+  if (isLoading) return <LoadingSpinner />;
 
   return (
     <Container>
-      {/* Header Section */}
-      <div className="mt-6" data-aos="fade-down" data-aos-duration="800">
-        <h2 className="text-xl sm:text-2xl font-semibold text-center sm:text-left tracking-wide">
-          Available Decorations ({services.length})
-        </h2>
-      </div>
+      <div
+        className="md:mt-6 sticky top-20 z-1
+             bg-base-100/90 backdrop-blur
+             flex flex-col md:flex-row md:items-center md:justify-between gap-4
+             py-3"
+        data-aos="fade-down"
+        data-aos-duration="800"
+      >
+        {/* LEFT */}
+        <div className="flex flex-col sm:flex-row sm:items-center gap-4 w-full md:w-auto">
+          <h2 className="text-xl sm:text-2xl font-semibold tracking-wide text-center sm:text-left">
+            Available ({services.length})
+          </h2>
 
-      <div className="md:mt-10 mt-4   items-center  md:flex  flex justify-between sm:flex-row sm:justify-between sm:items-center gap-4">
-        <div className="pl-4 mt-4 md:mt-0 w-1/3 sm:w-64 md:w-80 h-8">
-          {/* Search Box */}
-          <label className="flex items-center border rounded-xl px-2 sm:px-3 sm:h-10 bg-base-100 border-base-content/30 shadow-sm hover:shadow-md transition-all duration-300">
-            <svg
-              className="h-4 w-4 sm:h-5 sm:w-5 opacity-50 mr-2 text-base-content"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <circle cx="11" cy="11" r="8"></circle>
-              <path d="m21 21-4.3-4.3"></path>
-            </svg>
-            <input
-              type="search"
-              placeholder="Search services..."
-              className="outline-none w-full text-sm sm:text-base text-base-content bg-transparent"
-              value={searchText}
-              onChange={(e) => setSearchText(e.target.value)}
-            />
-          </label>
+          {/* Search */}
+          <div className="w-full sm:w-64 md:w-72">
+            <label className="flex items-center border rounded-xl px-3 h-10 bg-base-100 border-base-content/30 shadow-sm">
+              <svg
+                className="h-5 w-5 opacity-50 mr-2 text-base-content"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <circle cx="11" cy="11" r="8"></circle>
+                <path d="m21 21-4.3-4.3"></path>
+              </svg>
+              <input
+                type="search"
+                placeholder="Search services..."
+                className="outline-none w-full text-sm sm:text-base bg-transparent"
+                value={searchText}
+                onChange={(e) => setSearchText(e.target.value)}
+              />
+            </label>
+          </div>
         </div>
 
-        {/*sort funtonality */}
-        <div className="items-center rounded-xl px-3  bg-base-100 shadow-sm hover:shadow-md transition-all duration-300 w-1/3 sm:w-64 md:w-60">
-          {/* Category Dropdown */}
-          <div className="w-full sm:w-64 md:w-full">
-            <select
-              className="select h-9 w-full text-sm sm:text-base bg-base-100 text-base-content mt-1 outline-none border border-base-content/30 rounded-md focus:border-primary focus:ring-0 focus:ring-primary transition"
-              value={category}
-              onChange={(e) => setCategory(e.target.value)}
-            >
-              <option value="">Category Sort</option>
-              <option value="home">Home Decoration</option>
-              <option value="wedding">Wedding Decoration</option>
-              <option value="office">Office / Corporate</option>
-              <option value="ceremony">Ceremony</option>
-              <option value="event">Event / Birthday</option>
-            </select>
-          </div>
+        {/* RIGHT */}
+        <div className="flex flex-row gap-3 w-full md:w-auto">
+          <select
+            className="select h-10 w-1/2 sm:w-56 bg-base-100 border border-base-content/30 rounded-md"
+            value={category}
+            onChange={(e) => setCategory(e.target.value)}
+          >
+            <option value="">Category</option>
+            <option value="home">Home</option>
+            <option value="wedding">Wedding</option>
+            <option value="office">Office</option>
+            <option value="ceremony">Ceremony</option>
+            <option value="event">Event</option>
+          </select>
 
-          {/* Sort */}
-          <div className="w-full sm:w-64 md:w-full">
-            <select
-              className="select h-4 md:h-9  w-full text-xs md:text-sm lg:text-xl sm:text-base mt-1 outline-0 border border-gray-300 rounded-md focus:border-primary focus:ring-0 focus:ring-primary"
-              value={sortType}
-              onChange={(e) => setSortType(e.target.value)}
-            >
-              <option value="defaul text-xl">Price Sort</option>
-              <option value="price-low-high text-xs">Low → High</option>
-              <option value="price-high-low">High → Low</option>
-            </select>
-          </div>
+          <select
+            className="select h-10 w-1/2 sm:w-44 bg-base-100 border border-base-content/30 rounded-md"
+            value={sortType}
+            onChange={(e) => setSortType(e.target.value)}
+          >
+            <option value="default">Price</option>
+            <option value="price-low-high">Low → High</option>
+            <option value="price-high-low">High → Low</option>
+          </select>
         </div>
       </div>
 

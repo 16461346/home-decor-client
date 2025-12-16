@@ -4,7 +4,7 @@ import useAuth from "../../hooks/useAuth";
 import { toast } from "react-hot-toast";
 import { TbFidgetSpinner } from "react-icons/tb";
 import { useForm } from "react-hook-form";
-import { imageUpload } from "../../Utils";
+import { imageUpload, saveUserOrUpdate } from "../../Utils";
 
 const SignUp = () => {
   const { createUser, updateUserProfile, signInWithGoogle, loading } =
@@ -31,6 +31,14 @@ const SignUp = () => {
       //2. User Registration
       const result = await createUser(email, password);
 
+      await saveUserOrUpdate({
+        name,
+        email,
+        image: imageURL,
+        role: "customer",
+        createdAt: new Date(),
+      });
+
       //3. Save username & profile photo
       await updateUserProfile(name, imageURL);
       console.log(result);
@@ -47,7 +55,15 @@ const SignUp = () => {
   const handleGoogleSignIn = async () => {
     try {
       //User Registration using google
-      await signInWithGoogle();
+      const { user } = await signInWithGoogle();
+
+      await saveUserOrUpdate({
+        name: user?.displayName,
+        email: user?.email,
+        image: user?.photoURL,
+        role: "customer",
+        createdAt: new Date().toISOString(),
+      });
 
       navigate(from, { replace: true });
       toast.success("Signup Successful");
@@ -131,7 +147,7 @@ const SignUp = () => {
       file:bg-lime-50 file:text-primary
       hover:file:bg-lime-100
       bg-gray-100 border border-dashed border-fuchsia-600 rounded-md cursor-pointer
-      focus:outline-none focus:ring-2 focus:ring-lime-400 focus:border-lime-400
+      focus:outline-none focus:ring-2 focus:ring-primary focus:border-lime-400
       py-2"
                 {...register("image")}
               />
@@ -139,6 +155,7 @@ const SignUp = () => {
                 PNG, JPG or JPEG (max 2MB)
               </p>
             </div>
+
             <div>
               <label htmlFor="email" className="block mb-2 text-sm">
                 Email address

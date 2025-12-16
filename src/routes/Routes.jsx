@@ -34,7 +34,11 @@ export const router = createBrowserRouter([
       },
       {
         path: "/service/:id",
-        element: <PlantDetails />,
+        element: (
+          <PrivateRoute>
+            <PlantDetails />
+          </PrivateRoute>
+        ),
         loader: () => fetch("/coverage.json").then((res) => res.json()),
       },
       {

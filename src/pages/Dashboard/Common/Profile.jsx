@@ -1,14 +1,23 @@
+import LoadingSpinner from "../../../components/Shared/LoadingSpinner";
 import useAuth from "../../../hooks/useAuth";
+import useRole from "../../../hooks/useRole";
 
 const coverImg =
   "https://images.unsplash.com/photo-1504805572947-34fad45aed93?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
 const Profile = () => {
   const { user } = useAuth();
+  const [role,isRoleLoading]=useRole()
+
+
+
+  if(isRoleLoading) return <LoadingSpinner/>
 
   return (
-    <div className="flex  justify-center items-center h-screen">
-     <div className=" bg-gradient-to-r from-cyan-300 to-lime-200 rounded-2xl md:w-4/5 lg:w-3/8
-                shadow-lg ">
+    <div className="flex  bg-base-200 justify-center items-center h-screen">
+      <div
+        className=" bg-gradient-to-r from-cyan-300 to-lime-200 rounded-2xl md:w-4/5 lg:w-3/8
+                shadow-lg "
+      >
         <img
           alt="cover photo"
           src={coverImg}
@@ -22,10 +31,6 @@ const Profile = () => {
               className="mx-auto object-cover rounded-full h-24 w-24  border-2 border-white "
             />
           </a>
-
-          {/* <p className="p-2 px-4 text-xs text-white bg-primary rounded-full">
-            Customer
-          </p> */}
           <p className="mt-2 text-xl font-medium text-gray-800 ">
             User Id: {user?.uid}
           </p>
@@ -40,17 +45,12 @@ const Profile = () => {
                 </h2>
                 <h2 className="text-xl font-bold">
                   Email :{" "}
-                  <span className="font-bold text-red-500 ">
-                    {user?.email}
-                  </span>
+                  <span className="font-bold text-red-500 ">{user?.email}</span>
                 </h2>
                 <h2 className="text-xl font-bold">
                   Role :{" "}
-                  <span className=" text-indigo-600 font-bold  ">
-                    Customer
-                  </span>
+                <span className=" text-indigo-600 font-bold  ">{role}</span>
                 </h2>
-
               </div>
 
               <div className="flex  gap-4 mt-4 w-full">
@@ -76,5 +76,3 @@ const Profile = () => {
 };
 
 export default Profile;
-
- 

@@ -7,8 +7,14 @@ import AdminMenu from "./Menu/AdminMenu";
 import SellerMenu from "./Menu/SellerMenu";
 import CustomerMenu from "./Menu/CustomerMenu";
 import { RiArrowGoBackFill } from "react-icons/ri";
+import useRole from "../../../hooks/useRole";
+import LoadingSpinner from "../../Shared/LoadingSpinner";
 
 const Sidebar = ({ sidebarOpen, closeSidebar }) => {
+  const [role,isRoleLoading]=useRole()
+
+  if(isRoleLoading) return <LoadingSpinner/>
+
   return (
     <>
       {/* Sidebar */}
@@ -21,10 +27,10 @@ const Sidebar = ({ sidebarOpen, closeSidebar }) => {
           {/* Menu Items */}
           <div className="flex-1 mt-4">
             <nav className="text-base-content">
-              {/* <MenuItem icon={BsGraphUp} label="Statistics" address="/dashboard" /> */}
-              <CustomerMenu />
-              <SellerMenu />
-              <AdminMenu />
+              <MenuItem icon={BsGraphUp} label="Statistics" address="/dashboard" />
+              {role==='customer' && <CustomerMenu/>}
+              {role==='decorator' && <SellerMenu />}
+              {role==='admin' && <AdminMenu />}
             </nav>
           </div>
 
