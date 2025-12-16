@@ -1,8 +1,39 @@
 import { Dialog, DialogPanel, DialogTitle } from "@headlessui/react";
-;
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
+import LoadingSpinner from "../Shared/LoadingSpinner";
 
-const PurchaseModal = ({ closeModal, isOpen, data }) => {
+const PurchaseModal = ({ closeModal, isOpen, data, confirmBooking }) => {
+  // Fetch available decorators
+  const { data: DecoratorAvailable = [], isLoading } = useQuery({
+    queryKey: ["DecoratorAvailable"],
+    queryFn: async () => {
+      const result = await axios.get(
+        `${import.meta.env.VITE_API_URL}/Deco_Available`
+      );
+      return result.data;
+    },
+  });
 
+  if (isLoading) return <LoadingSpinner />;
+
+  // Check if any decorator is available at the selected date and time
+  const isDecoratorAvailable = DecoratorAvailable.some((decorator) => {
+    // যদি ফিল্ডগুলো না থাকে, direct true
+    if (!decorator.working_date || !decorator.start_time || !decorator.end_time) {
+      return true;
+    }
+
+    const decoratorDate = decorator.working_date; 
+    const decoratorStartTime = decorator.start_time; 
+    const decoratorEndTime = decorator.end_time;     
+
+    return (
+      decoratorDate === data.bookingDate &&
+      data.startTime >= decoratorStartTime &&
+      data.endTime <= decoratorEndTime
+    );
+  });
 
   return (
     <Dialog
@@ -12,7 +43,10 @@ const PurchaseModal = ({ closeModal, isOpen, data }) => {
       onClose={closeModal}
     >
       {/* Backdrop */}
-      <div className="fixed inset-0 bg-black/40 backdrop-blur-sm" aria-hidden="true" />
+      <div
+        className="fixed inset-0 bg-black/40 backdrop-blur-sm"
+        aria-hidden="true"
+      />
 
       <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
         <DialogPanel className="w-full max-w-md bg-gray-900 px-8 py-6 rounded-2xl shadow-2xl duration-300 ease-out">
@@ -20,41 +54,37 @@ const PurchaseModal = ({ closeModal, isOpen, data }) => {
             Review Before Booking
           </DialogTitle>
 
-          <div className="space-y-4 mt-4">
-            <p className="text-gray-200 text-lg font-semibold">
-              Decoration
-              <span className="ml-2 text-primary font-bold px-2 py-0.5 bg-primary/20 rounded-md">
-                {data.title || "Dynamic Title Here"}
-              </span>
-            </p>
-
-            <p className="text-gray-200 text-lg font-semibold">
-              Category
-              <span className="ml-2 text-pink-300 font-bold px-2 py-0.5 bg-pink-600/20 rounded-md">
-                {data.category || "Home Decor"}
-              </span>
-            </p>
-
-            <p className="text-gray-200 text-lg font-semibold">
-              Total Cost
-              <span className="ml-2 text-green-300 font-extrabold px-2 py-0.5 bg-red-200/20 rounded-md">
-                ${data.cost || "0.00"}
-              </span>
-            </p>
-
-            {/* Booking Inputs */}
-            
-
+          <div className="space-y-3 mt-4 text-gray-200">
+            <p><span className="font-semibold">Decoration:</span> {data.name || "N/A"}</p>
+            <p><span className="font-semibold">Category:</span> {data.category || "N/A"}</p>
+            <p><span className="font-semibold">Division:</span> {data.division || "N/A"}</p>
+            <p><span className="font-semibold">District:</span> {data.district || "N/A"}</p>
+            <p><span className="font-semibold">Booking Date:</span> {data.bookingDate || "N/A"}</p>
+            <p><span className="font-semibold">Start Time:</span> {data.startTime || "N/A"}</p>
+            <p><span className="font-semibold">End Time:</span> {data.endTime || "N/A"}</p>
+            <p><span className="font-semibold">Phone:</span> {data.phone || "N/A"}</p>
+            <p><span className="font-semibold">Total Cost:</span> ${data.price || "0.00"}</p>
           </div>
 
           {/* Buttons */}
           <div className="flex mt-6 justify-between gap-2">
-            <button
-              type="button"
-              className="w-[48%] py-3 rounded-xl bg-blue-500 hover:bg-blue-600 text-white font-bold shadow-md transition"
-            >
-              Process
-            </button>
+            {isDecoratorAvailable ? (
+              <button
+                type="button"
+                onClick={confirmBooking} // Booking POST হবে
+                className="w-[48%] py-3 rounded-xl bg-blue-500 hover:bg-blue-600 text-white font-bold shadow-md transition"
+              >
+                Pay Now
+              </button>
+            ) : (
+              <button
+                type="button"
+                disabled
+                className="w-[48%] py-3 rounded-xl bg-gray-500 text-white font-bold shadow-md cursor-not-allowed"
+              >
+                No Decorator Available
+              </button>
+            )}
 
             <button
               type="button"

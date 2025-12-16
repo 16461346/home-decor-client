@@ -1,4 +1,3 @@
-import { useLoaderData } from 'react-router'
 import HowItWork from '../../components/Aboute/HowItWork'
 import AbouteOverview from '../../components/Home/AbouteOverview'
 import NewsLetter from '../../components/Home/NewsLetter'
@@ -7,12 +6,12 @@ import Plants from '../../components/Home/Plants'
 import Reviews from '../../components/Home/Reviews'
 
 
+
 const Home = () => {
- const data=useLoaderData();
 
   return (
     <div>
-      <Plants data={data} />
+      <Plants/>
       <AbouteOverview/>
       <HowItWork/>
       <OurServices/>

@@ -30,7 +30,6 @@ export const router = createBrowserRouter([
       {
         path: "/",
         element: <Home />,
-        loader: () => fetch("/fackCard.json").then((res) => res.json()),
       },
       {
         path: "/service/:id",
@@ -44,7 +43,6 @@ export const router = createBrowserRouter([
       {
         path: "/services",
         element: <Service />,
-        loader: () => fetch("/fackCard.json").then((res) => res.json()),
       },
       {
         path: "/coverage",

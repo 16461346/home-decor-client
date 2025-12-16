@@ -78,7 +78,7 @@ const Plants = () => {
                       ...
                     </p>
                     <Link
-                      to={`/service/${service.id}`}
+                      to={`/service/${service._id}`}
                       className="text-primary font-semibold flex items-center gap-1 mt-1"
                     >
                       See more <IoIosArrowForward />
