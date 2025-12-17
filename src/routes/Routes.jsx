@@ -20,6 +20,7 @@ import Covarage from "../pages/Covarage/Coverage";
 import Coverage from "../pages/Covarage/Coverage";
 import MyBooking from "../pages/Dashboard/Customer/MyBooking";
 import PaymentHistory from "../pages/Dashboard/Customer/PaymentHistory";
+import DecoratorRequest from "../pages/Dashboard/Admin/DecoratorRequest";
 
 export const router = createBrowserRouter([
   {
@@ -91,6 +92,14 @@ export const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <MyInventory />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "decorate-request",
+        element: (
+          <PrivateRoute>
+            <DecoratorRequest/>
           </PrivateRoute>
         ),
       },

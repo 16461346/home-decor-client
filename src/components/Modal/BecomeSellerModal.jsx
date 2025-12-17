@@ -3,10 +3,14 @@ import { useState } from "react";
 import { useLoaderData } from "react-router";
 import useAuth from "../../hooks/useAuth";
 import Swal from "sweetalert2";
+import axios from "axios";
+import useRole from "../../hooks/useRole";
 
 const BecomeSellerModal = ({ closeModal, isOpen }) => {
   const divisionData = useLoaderData(); // [{ division:"Dhaka", districts:[{name:"Gazipur"}, ...] }]
   const { user } = useAuth();
+  const [role]=useRole();
+  console.log(role);
 
   const [selectedDivision, setSelectedDivision] = useState("");
   const [selectedDistrict, setSelectedDistrict] = useState("");
@@ -21,7 +25,7 @@ const BecomeSellerModal = ({ closeModal, isOpen }) => {
     const found = divisionData.find((d) => d.division === value);
 
     if (found) {
-      setDistrictList(found.districts); 
+      setDistrictList(found.districts);
     } else {
       setDistrictList([]);
     }
@@ -30,7 +34,8 @@ const BecomeSellerModal = ({ closeModal, isOpen }) => {
   };
 
   // Process Button Click Handler
-  const handleProcess = () => {
+
+  const handleProcess = async () => {
     if (!selectedDivision || !selectedDistrict || !phone) {
       Swal.fire({
         title: "Error!",
@@ -40,19 +45,45 @@ const BecomeSellerModal = ({ closeModal, isOpen }) => {
       return;
     }
 
-    Swal.fire({
-      title: "Success!",
-      text: "Your Decorator request send Please Wait to approve!",
-      icon: "success",
-    });
-
-    console.log({
+    const requestData = {
       name: user?.displayName,
       email: user?.email,
       division: selectedDivision,
       district: selectedDistrict,
       phone,
-    });
+      role
+    };
+
+    try {
+      const res = await axios.post(
+        `${import.meta.env.VITE_API_URL}/decorator-requests`,
+        requestData
+      );
+
+      if (res.data.success) {
+        Swal.fire({
+          title: "Success!",
+          text: "Your decorator request has been sent. Please wait for admin approval.",
+          icon: "success",
+        });
+
+        closeModal();
+      }
+    } catch (error) {
+      if (error.response?.status === 409) {
+        Swal.fire({
+          title: "Already Requested",
+          text: error.response.data.message,
+          icon: "warning",
+        });
+      } else {
+        Swal.fire({
+          title: "Error!",
+          text: "Something went wrong. Please try again later.",
+          icon: "error",
+        });
+      }
+    }
   };
 
   return (
@@ -62,11 +93,13 @@ const BecomeSellerModal = ({ closeModal, isOpen }) => {
       className="relative z-50 focus:outline-none"
       onClose={closeModal}
     >
-      <div className="fixed inset-0 bg-black/40 backdrop-blur-sm" aria-hidden="true" />
+      <div
+        className="fixed inset-0 bg-black/40 backdrop-blur-sm"
+        aria-hidden="true"
+      />
 
       <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
         <DialogPanel className="w-full max-w-md bg-gray-900 px-8 py-6 rounded-2xl shadow-2xl">
-
           <DialogTitle className="text-2xl font-extrabold text-center mb-4 text-white underline underline-offset-4 decoration-primary">
             Review Before Booking
           </DialogTitle>
@@ -84,13 +117,13 @@ const BecomeSellerModal = ({ closeModal, isOpen }) => {
 
           {/* Input Section */}
           <div className="mt-6 space-y-4">
-
             {/* Division + District */}
             <div className="flex gap-4">
-
               {/* Division */}
               <div className="flex flex-col w-1/2">
-                <label className="text-gray-200 font-semibold mb-1">Division</label>
+                <label className="text-gray-200 font-semibold mb-1">
+                  Division
+                </label>
                 <select
                   value={selectedDivision}
                   onChange={handleDivisionChange}
@@ -107,7 +140,9 @@ const BecomeSellerModal = ({ closeModal, isOpen }) => {
 
               {/* District */}
               <div className="flex flex-col w-1/2">
-                <label className="text-gray-200 font-semibold mb-1">District</label>
+                <label className="text-gray-200 font-semibold mb-1">
+                  District
+                </label>
                 <select
                   value={selectedDistrict}
                   onChange={(e) => setSelectedDistrict(e.target.value)}
@@ -122,12 +157,13 @@ const BecomeSellerModal = ({ closeModal, isOpen }) => {
                   ))}
                 </select>
               </div>
-
             </div>
 
             {/* Phone Number */}
             <div className="flex flex-col">
-              <label className="text-gray-200 font-semibold mb-1">Phone Number</label>
+              <label className="text-gray-200 font-semibold mb-1">
+                Phone Number
+              </label>
               <input
                 type="text"
                 value={phone}
@@ -136,7 +172,6 @@ const BecomeSellerModal = ({ closeModal, isOpen }) => {
                 className="w-full border border-gray-300 rounded-md p-2 text-black bg-white"
               />
             </div>
-
           </div>
 
           {/* Buttons */}
@@ -146,7 +181,7 @@ const BecomeSellerModal = ({ closeModal, isOpen }) => {
               className="w-[48%] py-3 rounded-xl bg-blue-500 hover:bg-blue-600 text-white font-bold shadow-md"
               onClick={handleProcess}
             >
-             Send Request
+              Send Request
             </button>
 
             <button
@@ -157,7 +192,6 @@ const BecomeSellerModal = ({ closeModal, isOpen }) => {
               Cancel
             </button>
           </div>
-
         </DialogPanel>
       </div>
     </Dialog>

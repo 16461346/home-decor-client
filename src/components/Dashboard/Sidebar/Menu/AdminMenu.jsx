@@ -13,6 +13,7 @@ const AdminMenu = () => {
         address='add-decoration'
       />
        <MenuItem icon={MdHomeWork} label='My Decoration' address='my-decoration' />
+       <MenuItem icon={MdHomeWork} label='Decorate Request' address='decorate-request' />
     </>
   )
 }

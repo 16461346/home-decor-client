@@ -16,24 +16,24 @@ const PurchaseModal = ({ closeModal, isOpen, data, confirmBooking }) => {
   });
 
   if (isLoading) return <LoadingSpinner />;
+const formatDate = (date) =>
+  new Date(date).toISOString().split("T")[0];
 
-  // Check if any decorator is available at the selected date and time
-  const isDecoratorAvailable = DecoratorAvailable.some((decorator) => {
-    // যদি ফিল্ডগুলো না থাকে, direct true
-    if (!decorator.working_date || !decorator.start_time || !decorator.end_time) {
-      return true;
-    }
+const isDecoratorAvailable = DecoratorAvailable.some((decorator) => {
+  if (!decorator.working_date || !decorator.start_time || !decorator.end_time) {
+    return true;
+  }
 
-    const decoratorDate = decorator.working_date; 
-    const decoratorStartTime = decorator.start_time; 
-    const decoratorEndTime = decorator.end_time;     
+  const decoratorDate = formatDate(decorator.working_date);
+  const bookingDate = formatDate(data.bookingDate);
 
-    return (
-      decoratorDate === data.bookingDate &&
-      data.startTime >= decoratorStartTime &&
-      data.endTime <= decoratorEndTime
-    );
-  });
+  return (
+    decoratorDate === bookingDate &&
+    data.startTime >= decorator.start_time &&
+    data.endTime <= decorator.end_time
+  );
+});
+
 
   return (
     <Dialog
