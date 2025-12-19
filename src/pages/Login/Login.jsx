@@ -14,20 +14,50 @@ const Login = () => {
   const location = useLocation();
   const from = location.state || "/";
 
-  const [loginError, setLoginError] = useState(""); // Inline error state
-  const [showPassword, setShowPassword] = useState(false); // Password toggle
+  const [loginError, setLoginError] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+
+  // 🔥 NEW STATES (design e kono impact nai)
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   if (loading) return <LoadingSpinner />;
-  if (user) return <Navigate to={from} replace={true} />;
+  if (user) return <Navigate to={from} replace />;
 
-  // form submit handler
+  // validation logic
+  const validateInputs = (emailValue, passwordValue) => {
+    if (!emailValue) return "Email is required";
+    if (!passwordValue) return "Password is required";
+    if (passwordValue.length < 6)
+      return "Password must be at least 6 characters";
+    return "";
+  };
+
+  // onChange handlers
+  const handleEmailChange = (e) => {
+    const value = e.target.value;
+    setEmail(value);
+    setLoginError(validateInputs(value, password));
+  };
+
+  const handlePasswordChange = (e) => {
+    const value = e.target.value;
+    setPassword(value);
+    setLoginError(validateInputs(email, value));
+  };
+
+  // submit (আগের মতোই)
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const form = event.target;
-    const email = form.email.value;
-    const password = form.password.value;
+
+    const error = validateInputs(email, password);
+    if (error) {
+      setLoginError(error);
+      return;
+    }
 
     try {
+      setLoginError("");
       const { user } = await signIn(email, password);
 
       await saveUserOrUpdate({
@@ -38,16 +68,15 @@ const Login = () => {
         createdAt: new Date().toISOString(),
       });
 
-      navigate(from, { replace: true });
       toast.success("Login Successful");
+      navigate(from, { replace: true });
     } catch (err) {
-      console.log(err);
-      setLoginError(err?.message);
+      setLoginError("Invalid email or password");
       setLoading(false);
     }
   };
 
-  // Handle Google Signin
+  // google login
   const handleGoogleSignIn = async () => {
     try {
       setLoginError("");
@@ -61,10 +90,9 @@ const Login = () => {
         createdAt: new Date().toISOString(),
       });
 
-      navigate(from, { replace: true });
       toast.success("Login Successful");
+      navigate(from, { replace: true });
     } catch (err) {
-      console.log(err);
       setLoading(false);
       setLoginError(err?.message);
     }
@@ -80,6 +108,7 @@ const Login = () => {
           </p>
         </div>
 
+        {/* 🔴 DESIGN একদম আগের মতো */}
         <form onSubmit={handleSubmit} noValidate className="space-y-6">
           <div className="space-y-4">
             <div>
@@ -90,9 +119,10 @@ const Login = () => {
                 type="email"
                 name="email"
                 id="email"
-                required
                 placeholder="Enter Your Email Here"
                 className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-primary bg-gray-200 text-gray-900"
+                value={email}
+                onChange={handleEmailChange}
               />
             </div>
 
@@ -102,16 +132,19 @@ const Login = () => {
                   Password
                 </label>
               </div>
+
               <div className="relative">
                 <input
                   type={showPassword ? "text" : "password"}
                   name="password"
                   id="password"
                   autoComplete="current-password"
-                  required
                   placeholder="*******"
                   className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-primary bg-gray-200 text-gray-900 pr-10"
+                  value={password}
+                  onChange={handlePasswordChange}
                 />
+
                 <div
                   className="absolute right-3 top-2.5 text-gray-600 cursor-pointer"
                   onClick={() => setShowPassword(!showPassword)}
@@ -126,37 +159,35 @@ const Login = () => {
             </div>
           </div>
 
-          {/* Inline error message */}
           {loginError && (
             <p className="text-red-600 text-sm mt-1">{loginError}</p>
           )}
 
-        <div className="space-y-3">
-  <button
-    type="submit"
-    className="bg-primary w-full rounded-md py-3 font-bold text-white flex items-center justify-center"
-  >
-    {loading ? (
-      <TbFidgetSpinner className="animate-spin" />
-    ) : (
-      "Continue"
-    )}
-  </button>
+          <div className="space-y-3">
+            <button
+              type="submit"
+              disabled={!!loginError}
+              className={`bg-primary w-full rounded-md py-3 font-bold text-white flex items-center justify-center ${
+                loginError ? "opacity-60 cursor-not-allowed" : ""
+              }`}
+            >
+              {loading ? (
+                <TbFidgetSpinner className="animate-spin" />
+              ) : (
+                "Continue"
+              )}
+            </button>
 
-  <NavLink
-    to="/"
-    className="bg-secondary w-full rounded-md py-3 font-bold text-white flex items-center justify-center"
-  >
-    {loading ? (
-      <TbFidgetSpinner className="animate-spin" />
-    ) : (
-      "Continue without login"
-    )}
-  </NavLink>
-</div>
-
+            <NavLink
+              to="/"
+              className="bg-secondary w-full rounded-md py-3 font-bold text-white flex items-center justify-center"
+            >
+              Continue without login
+            </NavLink>
+          </div>
         </form>
 
+        {/* rest unchanged */}
         <div className="space-y-1">
           <button className="text-sm mt-3 font-semibold hover:underline text-green-800 cursor-pointer">
             Forgot password?
@@ -188,7 +219,6 @@ const Login = () => {
           >
             Sign up
           </Link>
-          .
         </p>
       </div>
     </div>

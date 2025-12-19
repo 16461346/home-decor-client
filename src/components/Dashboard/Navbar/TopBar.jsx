@@ -11,6 +11,7 @@ const TopBar = ({ toggleSidebar }) => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const { logOut, user } = useAuth();
   console.log(user);
+  
 
   const toggleDropdown = () => setDropdownOpen(!dropdownOpen);
 

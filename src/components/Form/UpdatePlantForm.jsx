@@ -1,119 +1,136 @@
-const UpdatePlantForm = () => {
+import { useState, useEffect } from "react";
+import axios from "axios";
+import toast from "react-hot-toast";
+import { imageUpload } from "../../Utils"; // AddPlantForm style
+
+const UpdatePlantForm = ({ plant, closeModal }) => {
+  const [formData, setFormData] = useState({
+    name: "",
+    category: "",
+    description: "",
+    price: "",
+    quantity: "",
+    image: null, // local file
+  });
+
+  useEffect(() => {
+    if (plant) {
+      setFormData({
+        name: plant.name || "",
+        category: plant.category || "home",
+        description: plant.description || "",
+        price: plant.price || "",
+        quantity: plant.quantity || "",
+        image: null,
+      });
+    }
+  }, [plant]);
+
+  const handleChange = (e) => {
+    const { name, value, files } = e.target;
+    if (name === "image") {
+      setFormData({ ...formData, image: files[0] });
+    } else {
+      setFormData({ ...formData, [name]: value });
+    }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      let imageUrl = plant.image; // default current image
+      if (formData.image) {
+        imageUrl = await imageUpload(formData.image); // upload new image and get URL
+      }
+
+      const DecorationData = {
+        name: formData.name,
+        category: formData.category,
+        description: formData.description,
+        price: Number(formData.price),
+        quantity: Number(formData.quantity),
+        image: imageUrl,
+      };
+
+      await axios.put(`${import.meta.env.VITE_API_URL}/decoration/${plant._id}`, DecorationData);
+
+      toast.success("Decoration updated successfully");
+      closeModal();
+    } catch (err) {
+      console.error(err);
+      toast.error("Failed to update decoration");
+    }
+  };
+
   return (
-    <div className='w-full flex flex-col justify-center items-center text-gray-800 rounded-xl bg-gray-50'>
-      <form>
-        <div className='grid grid-cols-1 gap-10'>
-          <div className='space-y-6'>
-            {/* Name */}
-            <div className='space-y-1 text-sm'>
-              <label htmlFor='name' className='block text-gray-600'>
-                Name
-              </label>
-              <input
-                className='w-full px-4 py-3 text-gray-800 border border-lime-300 focus:outline-lime-500 rounded-md bg-white'
-                name='name'
-                id='name'
-                type='text'
-                placeholder='Plant Name'
-                required
-              />
-            </div>
-            {/* Category */}
-            <div className='space-y-1 text-sm'>
-              <label htmlFor='category' className='block text-gray-600 '>
-                Category
-              </label>
-              <select
-                required
-                className='w-full px-4 py-3 border-lime-300 focus:outline-lime-500 rounded-md bg-white'
-                name='category'
-              >
-                <option value='Indoor'>Indoor</option>
-                <option value='Outdoor'>Outdoor</option>
-                <option value='Succulent'>Succulent</option>
-                <option value='Flowering'>Flowering</option>
-              </select>
-            </div>
-            {/* Description */}
-            <div className='space-y-1 text-sm'>
-              <label htmlFor='description' className='block text-gray-600'>
-                Description
-              </label>
+    <form onSubmit={handleSubmit} className="space-y-4">
+      <input
+        type="text"
+        name="name"
+        placeholder="Decoration Name"
+        value={formData.name}
+        onChange={handleChange}
+        className="w-full px-4 py-3 border text-black border-black rounded-md"
+        required
+      />
 
-              <textarea
-                id='description'
-                placeholder='Write plant description here...'
-                className='block rounded-md focus:lime-300 w-full h-32 px-4 py-3 text-gray-800  border border-lime-300 bg-white focus:outline-lime-500 '
-                name='description'
-              ></textarea>
-            </div>
-          </div>
-          <div className='space-y-6 flex flex-col'>
-            {/* Price & Quantity */}
-            <div className='flex justify-between gap-2'>
-              {/* Price */}
-              <div className='space-y-1 text-sm'>
-                <label htmlFor='price' className='block text-gray-600 '>
-                  Price
-                </label>
-                <input
-                  className='w-full px-4 py-3 text-gray-800 border border-lime-300 focus:outline-lime-500 rounded-md bg-white'
-                  name='price'
-                  id='price'
-                  type='number'
-                  placeholder='Price per unit'
-                  required
-                />
-              </div>
+      <select
+        name="category"
+        value={formData.category}
+        onChange={handleChange}
+        className="w-full px-4 py-3 border text-black border-black rounded-md"
+        required
+      >
+        <option value="home">Home Decoration</option>
+        <option value="wedding">Wedding Decoration</option>
+        <option value="corporation">Corporation</option>
+        <option value="office">Office</option>
+        <option value="ceremony">Ceremony</option>
+        <option value="birthday">BirthDay</option>
+        <option value="event">Event</option>
+      </select>
 
-              {/* Quantity */}
-              <div className='space-y-1 text-sm'>
-                <label htmlFor='quantity' className='block text-gray-600'>
-                  Quantity
-                </label>
-                <input
-                  className='w-full px-4 py-3 text-gray-800 border border-lime-300 focus:outline-lime-500 rounded-md bg-white'
-                  name='quantity'
-                  id='quantity'
-                  type='number'
-                  placeholder='Available quantity'
-                  required
-                />
-              </div>
-            </div>
-            {/* Image */}
-            <div className=' p-4  w-full  m-auto rounded-lg grow'>
-              <div className='file_upload px-5 py-3 relative border-4 border-dotted border-gray-300 rounded-lg'>
-                <div className='flex flex-col w-max mx-auto text-center'>
-                  <label>
-                    <input
-                      className='text-sm cursor-pointer w-36 hidden'
-                      type='file'
-                      name='image'
-                      id='image'
-                      accept='image/*'
-                      hidden
-                    />
-                    <div className='bg-lime-500 text-white border border-gray-300 rounded font-semibold cursor-pointer p-1 px-3 hover:bg-lime-500'>
-                      Upload Image
-                    </div>
-                  </label>
-                </div>
-              </div>
-            </div>
+      <textarea
+        name="description"
+        placeholder="Description"
+        value={formData.description}
+        onChange={handleChange}
+        className="w-full h-28 px-4 py-3 text-black border border-black rounded-md"
+      />
 
-            {/* Submit Button */}
-            <button
-              type='submit'
-              className='w-full cursor-pointer p-3 mt-5 text-center font-medium text-white transition duration-200 rounded shadow-md bg-lime-500 '
-            >
-              Update Plant
-            </button>
-          </div>
-        </div>
-      </form>
-    </div>
-  )
-}
+      <input
+        type="number"
+        name="price"
+        placeholder="Price per unit"
+        value={formData.price}
+        onChange={handleChange}
+        className="w-full px-4 py-3 border text-black border-black rounded-md"
+        required
+      />
 
-export default UpdatePlantForm
+      {/* Image Upload */}
+      <label className="flex text-black flex-col items-center gap-2 cursor-pointer border border-dashed border-black p-4 rounded-md hover:border-black/70 transition">
+        <input
+          type="file"
+          name="image"
+          accept="image/*"
+          onChange={handleChange}
+          className="hidden"
+        />
+        <span className="px-4 py-2 border border-black rounded-md text-sm font-medium hover:bg-black hover:text-white transition">
+          {formData.image ? formData.image.name : "Upload Image"}
+        </span>
+      </label>
+
+      <button
+        type="submit"
+        className="w-full py-3 mt-4 bg-black text-white rounded-md hover:bg-black/90 font-bold transition"
+      >
+        Update Decoration
+      </button>
+    </form>
+  );
+};
+
+export default UpdatePlantForm;

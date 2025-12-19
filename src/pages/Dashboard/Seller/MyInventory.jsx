@@ -1,62 +1,72 @@
-import PlantDataRow from '../../../components/Dashboard/TableRows/PlantDataRow'
+import { useQuery } from "@tanstack/react-query";
+import PlantDataRow from "../../../components/Dashboard/TableRows/PlantDataRow";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
+
 
 const MyInventory = () => {
+  const axiosSecure = useAxiosSecure();
+  const { data: MyInventory = [] } = useQuery({
+    queryKey: ["AllUsers"],
+    queryFn: async () => {
+      const { data } = await axiosSecure.get(`/decorations`);
+      return data;
+    },
+  });
+  console.log(MyInventory);
+
+
   return (
     <>
-      <div className='container mx-auto px-4 sm:px-8'>
-        <div className='py-8'>
-          <div className='-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto'>
-            <div className='inline-block min-w-full shadow rounded-lg overflow-hidden'>
-              <table className='min-w-full leading-normal'>
+      <div className="container mx-auto px-4 sm:px-8">
+        <div className="py-8">
+          <div className="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
+            <div className="inline-block min-w-full shadow rounded-lg overflow-hidden">
+              <table className="min-w-full leading-normal">
                 <thead>
                   <tr>
                     <th
-                      scope='col'
-                      className='px-5 py-3 bg-base-200  border-b border-gray-200 text-base-content  text-left text-sm uppercase font-normal'
+                      scope="col"
+                      className="px-5 py-3 bg-base-200  border-b border-gray-200 text-base-content  text-left text-sm uppercase font-normal"
                     >
                       Image
                     </th>
                     <th
-                      scope='col'
-                      className='px-5 py-3 bg-base-200  border-b border-gray-200 text-base-content  text-left text-sm uppercase font-normal'
+                      scope="col"
+                      className="px-5 py-3 bg-base-200  border-b border-gray-200 text-base-content  text-left text-sm uppercase font-normal"
                     >
                       Name
                     </th>
                     <th
-                      scope='col'
-                      className='px-5 py-3 bg-base-200  border-b border-gray-200 text-base-content  text-left text-sm uppercase font-normal'
+                      scope="col"
+                      className="px-5 py-3 bg-base-200  border-b border-gray-200 text-base-content  text-left text-sm uppercase font-normal"
                     >
                       Category
                     </th>
                     <th
-                      scope='col'
-                      className='px-5 py-3 bg-base-200  border-b border-gray-200 text-base-content  text-left text-sm uppercase font-normal'
+                      scope="col"
+                      className="px-5 py-3 bg-base-200  border-b border-gray-200 text-base-content  text-left text-sm uppercase font-normal"
                     >
                       Price
                     </th>
-                    <th
-                      scope='col'
-                      className='px-5 py-3 bg-base-200  border-b border-gray-200 text-base-content  text-left text-sm uppercase font-normal'
-                    >
-                      Quantity
-                    </th>
 
                     <th
-                      scope='col'
-                      className='px-5 py-3 bg-base-200  border-b border-gray-200 text-base-content  text-left text-sm uppercase font-normal'
+                      scope="col"
+                      className="px-5 py-3 bg-base-200  border-b border-gray-200 text-base-content  text-left text-sm uppercase font-normal"
                     >
                       Delete
                     </th>
                     <th
-                      scope='col'
-                      className='px-5 py-3 bg-base-200  border-b border-gray-200 text-base-content  text-left text-sm uppercase font-normal'
+                      scope="col"
+                      className="px-5 py-3 bg-base-200  border-b border-gray-200 text-base-content  text-left text-sm uppercase font-normal"
                     >
                       Update
                     </th>
                   </tr>
                 </thead>
                 <tbody>
-                  <PlantDataRow />
+                  {MyInventory.map((inventory) => (
+                    <PlantDataRow key={inventory._id} inventory={inventory} />
+                  ))}
                 </tbody>
               </table>
             </div>
@@ -64,7 +74,7 @@ const MyInventory = () => {
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 
-export default MyInventory
+export default MyInventory;

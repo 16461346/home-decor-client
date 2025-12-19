@@ -5,6 +5,8 @@ import { toast } from "react-hot-toast";
 import { TbFidgetSpinner } from "react-icons/tb";
 import { useForm } from "react-hook-form";
 import { imageUpload, saveUserOrUpdate } from "../../Utils";
+import { useState } from "react";
+import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 
 const SignUp = () => {
   const { createUser, updateUserProfile, signInWithGoogle, loading } =
@@ -12,6 +14,7 @@ const SignUp = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state || "/";
+  const [showPassword, setShowPassword] = useState(false); // Password toggle
 
   //React Hook From
   const {
@@ -181,34 +184,50 @@ const SignUp = () => {
               )}
             </div>
             <div>
-              <div className="flex justify-between">
-                <label htmlFor="password" className="text-sm mb-2">
-                  Password
-                </label>
+              <label htmlFor="password" className="block mb-2 text-sm">
+                Password
+              </label>
+
+              <div className="relative">
+                <input
+                  type={showPassword ? "text" : "password"}
+                  id="password"
+                  autoComplete="new-password"
+                  placeholder="*******"
+                  className="w-full px-3 py-2 border rounded-md border-gray-300 
+                 focus:outline-primary bg-gray-200 text-gray-900 pr-10"
+                  {...register("password", {
+                    required: "Password is required",
+                    minLength: {
+                      value: 6,
+                      message: "Password must be at least 6 characters",
+                    },
+                    maxLength: {
+                      value: 20,
+                      message: "Password must be less than 20 characters",
+                    },
+                    pattern: {
+                      value: /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d).+$/,
+                      message:
+                        "Password must contain uppercase, lowercase and a number",
+                    },
+                  })}
+                />
+
+                {/* 👁 Show / Hide Icon */}
+                <div
+                  className="absolute right-3 top-2.5 text-gray-600 cursor-pointer"
+                  onClick={() => setShowPassword(!showPassword)}
+                >
+                  {showPassword ? (
+                    <AiOutlineEyeInvisible size={20} />
+                  ) : (
+                    <AiOutlineEye size={20} />
+                  )}
+                </div>
               </div>
-              <input
-                type="password"
-                autoComplete="new-password"
-                id="password"
-                placeholder="*******"
-                className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-primary bg-gray-200 text-gray-900"
-                {...register("password", {
-                  required: "Password must be requred",
-                  minLength: {
-                    value: 6,
-                    message: "Password must be at least 6 characters",
-                  },
-                  maxLength: {
-                    value: 20,
-                    message: "Password must be 20 carecter less then",
-                  },
-                  pattern: {
-                    value: /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d).+$/,
-                    message:
-                      "Password must contain uppercase, lowercase and a number",
-                  },
-                })}
-              />
+
+              {/* ❌ Error message */}
               {errors.password && (
                 <p className="text-red-500 text-sm mt-1">
                   {errors.password.message}

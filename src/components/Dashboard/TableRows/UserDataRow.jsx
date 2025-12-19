@@ -1,42 +1,42 @@
-import { useState } from 'react'
-import UpdateUserRoleModal from '../../Modal/UpdateUserRoleModal'
+import { useState } from "react";
+import UpdateUserRoleModal from "../../Modal/UpdateUserRoleModal";
+import { useQueryClient } from "@tanstack/react-query";
 
-const UserDataRow = ({user}) => {
-  console.log(user);
-  let [isOpen, setIsOpen] = useState(false)
-  const closeModal = () => setIsOpen(false)
+const UserDataRow = ({ user }) => {
+  const [isEditOpen, setIsEditOpen] = useState(false);
+  const queryClient = useQueryClient();
+
+  const handleRoleUpdated = (newRole) => {
+    // Update UI instantly
+    queryClient.setQueryData(["AllUsers"], (oldData) =>
+      oldData.map((u) => (u._id === user._id ? { ...u, role: newRole } : u))
+    );
+    setIsEditOpen(false);
+  };
+
   return (
-  <tr>
-      <td className='px-5 py-5 border-b border-gray-200 bg-white text-sm'>
-        <p className='text-gray-900 '>{user.email}</p>
-      </td>
-      <td className='px-5 py-5 border-b border-gray-200 bg-white text-sm'>
-        <p className='text-gray-900 '>{user.role}</p>
-      </td>
-      <td className='px-5 py-5 border-b border-gray-200 bg-white text-sm'>
-      <p className=''>{user.name}</p>
-      </td>
-
-      <td className='px-5 py-5 border-b border-gray-200 bg-white text-sm'>
-        <span
-          onClick={() => setIsOpen(true)}
-          className='relative cursor-pointer inline-block px-3 py-1 font-semibold text-green-900 leading-tight'
+    <tr className="hover:bg-gray-50 transition">
+      <td className="px-5 py-3 border-b border-gray-200 text-sm">{user.email}</td>
+      <td className="px-5 py-3 border-b border-gray-200 text-sm">{user.role}</td>
+      <td className="px-5 py-3 border-b border-gray-200 text-sm">{user.name}</td>
+      <td className="px-5 py-3 border-b border-gray-200 text-sm">
+        <button
+          onClick={() => setIsEditOpen(true)}
+          className="bg-green-200 text-green-900 px-3 py-1 rounded hover:bg-green-300 transition"
         >
-          <span
-            aria-hidden='true'
-            className='absolute inset-0 bg-green-200 opacity-50 rounded-full'
-          ></span>
-          <span className='relative'>Update Role</span>
-        </span>
-        {/* Modal */}
+          Update
+        </button>
+
         <UpdateUserRoleModal
-          isOpen={isOpen}
-          closeModal={closeModal}
-          role='customer'
+          isOpen={isEditOpen}
+          closeModal={() => setIsEditOpen(false)}
+          role={user.role}
+          email={user.email}
+          onRoleUpdated={handleRoleUpdated}
         />
       </td>
     </tr>
-  )
-}
+  );
+};
 
-export default UserDataRow
+export default UserDataRow;

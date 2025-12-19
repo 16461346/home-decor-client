@@ -278,8 +278,7 @@ const PlantDetails = () => {
             >
               {bookingLoading ? "Booking..." : "Book Now"}
             </button>
-
-            {/* PURCHASE MODAL */}
+            
             <PurchaseModal
               data={{
                 ...serviceDetails,
@@ -293,7 +292,7 @@ const PlantDetails = () => {
               }}
               closeModal={closeModal}
               isOpen={isOpen}
-              confirmBooking={handleConfirmBooking} // এই function চালাবে Booking
+              confirmBooking={handleConfirmBooking} 
             />
           </div>
         </div>

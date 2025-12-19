@@ -17,7 +17,6 @@ const ManageUsers = () => {
       return data;
     },
   });
-  console.log(userManage);
   const filteredUsers = userManage.filter((u) => u.email !== loggedInEmail);
 
   return (
@@ -31,26 +30,26 @@ const ManageUsers = () => {
                   <tr>
                     <th
                       scope="col"
-                      className="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal"
+                      className="px-5 py-3 bg-white font-bold  border-b border-gray-200 text-gray-800  text-left text-sm uppercase"
                     >
                       Email
                     </th>
                     <th
                       scope="col"
-                      className="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal"
+                      className="px-5 py-3 bg-white text-gray-800  border-b border-gray-200 font-bold  text-left text-sm uppercase"
                     >
                       Role
                     </th>
                     <th
                       scope="col"
-                      className="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal"
+                      className="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-bold"
                     >
                       Name
                     </th>
 
                     <th
                       scope="col"
-                      className="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal"
+                      className="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800 font-bold  text-left text-sm uppercase"
                     >
                       Action
                     </th>

@@ -7,7 +7,7 @@ import axios from "axios";
 import useRole from "../../hooks/useRole";
 
 const BecomeSellerModal = ({ closeModal, isOpen }) => {
-  const divisionData = useLoaderData(); // [{ division:"Dhaka", districts:[{name:"Gazipur"}, ...] }]
+  const divisionData = useLoaderData();
   const { user } = useAuth();
   const [role]=useRole();
   console.log(role);

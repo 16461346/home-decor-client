@@ -1,39 +1,30 @@
 import { Dialog, DialogPanel, DialogTitle } from "@headlessui/react";
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 import LoadingSpinner from "../Shared/LoadingSpinner";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const PurchaseModal = ({ closeModal, isOpen, data, confirmBooking }) => {
-  // Fetch available decorators
-  const { data: DecoratorAvailable = [], isLoading } = useQuery({
-    queryKey: ["DecoratorAvailable"],
+  const axiosSecure = useAxiosSecure();
+
+  // Fetch available decorators filtered by division, district, bookingDate
+  const { data: decoratorData = { available: false, decorators: [] }, isLoading } = useQuery({
+    queryKey: ["availableDecorators", data.division, data.district, data.bookingDate],
+    enabled: !!data.division && !!data.district && !!data.bookingDate,
     queryFn: async () => {
-      const result = await axios.get(
-        `${import.meta.env.VITE_API_URL}/Deco_Available`
-      );
-      return result.data;
+      const res = await axiosSecure.get(`/decorators/available`, {
+        params: {
+          division: data.division,
+          district: data.district,
+          bookingDate: data.bookingDate,
+        },
+      });
+      return res.data;
     },
   });
 
   if (isLoading) return <LoadingSpinner />;
-const formatDate = (date) =>
-  new Date(date).toISOString().split("T")[0];
 
-const isDecoratorAvailable = DecoratorAvailable.some((decorator) => {
-  if (!decorator.working_date || !decorator.start_time || !decorator.end_time) {
-    return true;
-  }
-
-  const decoratorDate = formatDate(decorator.working_date);
-  const bookingDate = formatDate(data.bookingDate);
-
-  return (
-    decoratorDate === bookingDate &&
-    data.startTime >= decorator.start_time &&
-    data.endTime <= decorator.end_time
-  );
-});
-
+  const isDecoratorAvailable = decoratorData.available;
 
   return (
     <Dialog
@@ -42,12 +33,7 @@ const isDecoratorAvailable = DecoratorAvailable.some((decorator) => {
       className="relative z-50 focus:outline-none"
       onClose={closeModal}
     >
-      {/* Backdrop */}
-      <div
-        className="fixed inset-0 bg-black/40 backdrop-blur-sm"
-        aria-hidden="true"
-      />
-
+      <div className="fixed inset-0 bg-black/40 backdrop-blur-sm" aria-hidden="true" />
       <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
         <DialogPanel className="w-full max-w-md bg-gray-900 px-8 py-6 rounded-2xl shadow-2xl duration-300 ease-out">
           <DialogTitle className="text-2xl font-extrabold text-center mb-4 text-white tracking-wide underline underline-offset-4 decoration-primary">
@@ -66,12 +52,11 @@ const isDecoratorAvailable = DecoratorAvailable.some((decorator) => {
             <p><span className="font-semibold">Total Cost:</span> ${data.price || "0.00"}</p>
           </div>
 
-          {/* Buttons */}
           <div className="flex mt-6 justify-between gap-2">
             {isDecoratorAvailable ? (
               <button
                 type="button"
-                onClick={confirmBooking} // Booking POST হবে
+                onClick={confirmBooking}
                 className="w-[48%] py-3 rounded-xl bg-blue-500 hover:bg-blue-600 text-white font-bold shadow-md transition"
               >
                 Pay Now
