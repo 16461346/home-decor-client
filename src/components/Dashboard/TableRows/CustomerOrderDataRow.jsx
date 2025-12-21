@@ -1,66 +1,74 @@
-import { useState } from 'react'
-import DeleteModal from '../../Modal/DeleteModal'
+import { useState } from "react";
+import DeleteModal from "../../Modal/DeleteModal";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import { useQueryClient } from "@tanstack/react-query";
+import Swal from "sweetalert2";
 
-const CustomerOrderDataRow = ({Sbooking}) => {
-  const{Image,category,price,startTime,transactionId,endTime,name,status,bookingDate}=Sbooking
-  const [isOpen, setIsOpen] = useState(false)
-  const closeModal = () => setIsOpen(false)
+const CustomerOrderDataRow = ({ Sbooking }) => {
+  const {
+    Image,
+    category,
+    price,
+    startTime,
+    transactionId,
+    endTime,
+    name,
+    status,
+    bookingDate,
+  } = Sbooking;
+
+  const [isOpen, setIsOpen] = useState(false);
+  const axiosSecure = useAxiosSecure();
+  const queryClient = useQueryClient();
+
+  const closeModal = () => setIsOpen(false);
+
+  const handleCancel = async () => {
+    try {
+      await axiosSecure.patch(
+        `/bookings/cancel/${transactionId}`
+      );
+
+      Swal.fire("Cancelled!", "Your booking has been cancelled", "success");
+
+      queryClient.invalidateQueries(["bookings"]);
+      closeModal();
+    } catch (err) {
+      Swal.fire("Error!", "Cancel failed", "error");
+    }
+  };
 
   return (
     <tr>
-      <td className='px-5 py-5 border-b border-base-300 bg-base-200 text-sm'>
-        <div className='flex items-center'>
-          <div className='shrink-0'>
-            <div className='block relative'>
-              <img
-                alt='profile'
-                src={Image}
-                className='mx-auto object-cover rounded h-10 w-15'
-              />
-            </div>
-          </div>
-        </div>
+      <td className="px-5 py-5 border-b bg-base-200">
+        <img src={Image} className="h-10 rounded" />
       </td>
 
-      <td className='px-5 py-5 border-b border-base-300 bg-base-200 text-sm'>
-        <p className='text-base-content'>{name}</p>
-      </td>
+      <td className="px-5 py-5 border-b bg-base-200">{name}</td>
+      <td className="px-5 py-5 border-b bg-base-200">{category}</td>
+      <td className="px-5 py-5 border-b bg-base-200">${price}</td>
+      <td className="px-5 py-5 border-b bg-base-200">{bookingDate}</td>
+      <td className="px-5 py-5 border-b bg-base-200">{startTime}</td>
+      <td className="px-5 py-5 border-b bg-base-200">{endTime}</td>
+      <td className="px-5 py-5 border-b bg-base-200">{status}</td>
 
-      <td className='px-5 py-5 border-b border-base-300 bg-base-200 text-sm'>
-        <p className='text-base-content'>{category}</p>
-      </td>
-
-      <td className='px-5 py-5 border-b border-base-300 bg-base-200 text-sm'>
-        <p className='text-base-content'>${price}</p>
-      </td>
-
-      <td className='px-5 py-5 border-b border-base-300 bg-base-200 text-sm'>
-        <p className='text-base-content'>{bookingDate}</p>
-      </td>
-
-      <td className='px-5 py-5 border-b border-base-300 bg-base-200 text-sm'>
-        <p className='text-base-content'>{startTime}</p>
-      </td>
-      <td className='px-5 py-5 border-b border-base-300 bg-base-200 text-sm'>
-        <p className='text-base-content'>{endTime}</p>
-      </td>
-      <td className='px-5 py-5 border-b border-base-300 bg-base-200 text-sm'>
-        <p className='text-base-content'>{status}</p>
-      </td>
-
-      <td className='px-5 py-5 border-b border-base-300 bg-base-200 text-sm'>
+      <td className="px-5 py-5 border-b bg-base-200">
         <button
+          disabled={status === "cancelled"}
           onClick={() => setIsOpen(true)}
-          className='relative disabled:cursor-not-allowed cursor-pointer inline-block px-3 py-1 font-semibold  leading-tight'
+          className="px-3 py-1 rounded bg-red-500 text-white disabled:opacity-40"
         >
-          <span className='absolute cursor-pointer inset-0 bg-red-200 opacity-50 rounded-full'></span>
-          <span className='relative cursor-pointer'>Cancel</span>
+          Cancel
         </button>
 
-        <DeleteModal isOpen={isOpen} closeModal={closeModal} />
+        <DeleteModal
+          isOpen={isOpen}
+          closeModal={closeModal}
+          handleDelete={handleCancel}
+        />
       </td>
     </tr>
-  )
-}
+  );
+};
 
-export default CustomerOrderDataRow
+export default CustomerOrderDataRow;

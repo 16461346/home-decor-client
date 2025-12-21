@@ -15,7 +15,7 @@ const UserDataRow = ({ user }) => {
   };
 
   return (
-    <tr className="hover:bg-gray-50 transition">
+    <tr className="hover:bg-gray-50 hover:text-black transition">
       <td className="px-5 py-3 border-b border-gray-200 text-sm">{user.email}</td>
       <td className="px-5 py-3 border-b border-gray-200 text-sm">{user.role}</td>
       <td className="px-5 py-3 border-b border-gray-200 text-sm">{user.name}</td>
