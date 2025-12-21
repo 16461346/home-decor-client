@@ -9,7 +9,7 @@ const ManageUsers = () => {
   const loggedInEmail = user?.email;
 
   const { data: userManage = [] } = useQuery({
-    queryKey: ["AllUsers"],
+    queryKey: ["AllUsers",user?.email],
     queryFn: async () => {
       const { data } = await axiosSecure.get(
         `${import.meta.env.VITE_API_URL}/userManage`

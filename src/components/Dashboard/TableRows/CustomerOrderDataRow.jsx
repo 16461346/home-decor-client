@@ -1,7 +1,8 @@
 import { useState } from 'react'
 import DeleteModal from '../../Modal/DeleteModal'
 
-const CustomerOrderDataRow = () => {
+const CustomerOrderDataRow = ({Sbooking}) => {
+  const{Image,category,price,startTime,transactionId,endTime,name,status,bookingDate}=Sbooking
   const [isOpen, setIsOpen] = useState(false)
   const closeModal = () => setIsOpen(false)
 
@@ -13,7 +14,7 @@ const CustomerOrderDataRow = () => {
             <div className='block relative'>
               <img
                 alt='profile'
-                src='https://i.ibb.co/rMHmQP2/money-plant-in-feng-shui-brings-luck.jpg'
+                src={Image}
                 className='mx-auto object-cover rounded h-10 w-15'
               />
             </div>
@@ -22,23 +23,29 @@ const CustomerOrderDataRow = () => {
       </td>
 
       <td className='px-5 py-5 border-b border-base-300 bg-base-200 text-sm'>
-        <p className='text-base-content'>Money Plant</p>
+        <p className='text-base-content'>{name}</p>
       </td>
 
       <td className='px-5 py-5 border-b border-base-300 bg-base-200 text-sm'>
-        <p className='text-base-content'>Indoor</p>
+        <p className='text-base-content'>{category}</p>
       </td>
 
       <td className='px-5 py-5 border-b border-base-300 bg-base-200 text-sm'>
-        <p className='text-base-content'>$120</p>
+        <p className='text-base-content'>${price}</p>
       </td>
 
       <td className='px-5 py-5 border-b border-base-300 bg-base-200 text-sm'>
-        <p className='text-base-content'>5</p>
+        <p className='text-base-content'>{bookingDate}</p>
       </td>
 
       <td className='px-5 py-5 border-b border-base-300 bg-base-200 text-sm'>
-        <p className='text-base-content'>Pending</p>
+        <p className='text-base-content'>{startTime}</p>
+      </td>
+      <td className='px-5 py-5 border-b border-base-300 bg-base-200 text-sm'>
+        <p className='text-base-content'>{endTime}</p>
+      </td>
+      <td className='px-5 py-5 border-b border-base-300 bg-base-200 text-sm'>
+        <p className='text-base-content'>{status}</p>
       </td>
 
       <td className='px-5 py-5 border-b border-base-300 bg-base-200 text-sm'>

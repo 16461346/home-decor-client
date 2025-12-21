@@ -21,6 +21,7 @@ import Coverage from "../pages/Covarage/Coverage";
 import MyBooking from "../pages/Dashboard/Customer/MyBooking";
 import PaymentHistory from "../pages/Dashboard/Customer/PaymentHistory";
 import DecoratorRequest from "../pages/Dashboard/Admin/DecoratorRequest";
+import PaymentSuccess from "../pages/PlantDetails/PaymentSuccess";
 
 export const router = createBrowserRouter([
   {
@@ -40,6 +41,10 @@ export const router = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: () => fetch("/coverage.json").then((res) => res.json()),
+      },
+      {
+        path:'/payment-success',
+        element:<PaymentSuccess/>
       },
       {
         path: "/services",

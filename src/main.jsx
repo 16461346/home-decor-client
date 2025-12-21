@@ -38,7 +38,7 @@ function MainApp() {
 }
 
 createRoot(document.getElementById("root")).render(
-  <StrictMode>
+  <div>
     <MainApp />
-  </StrictMode>
+  </div>
 );
