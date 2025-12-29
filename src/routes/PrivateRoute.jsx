@@ -1,14 +1,24 @@
-import useAuth from '../hooks/useAuth'
-import { Navigate, useLocation } from 'react-router'
-import LoadingSpinner from '../components/Shared/LoadingSpinner'
+import useAuth from '../hooks/useAuth';
+import { Navigate, useLocation } from 'react-router';
+import LoadingSpinner from '../components/Shared/LoadingSpinner';
 
-const PrivateRoute = ({ children }) => {
-  const { user, loading } = useAuth()
-  const location = useLocation()
+const PrivateRoute = ({ children, allowedRoles }) => {
+  const { user, role, loading } = useAuth();
+  const location = useLocation();
 
-  if (loading) return <LoadingSpinner />
-  if (user) return children
-  return <Navigate to='/login' state={location.pathname} replace='true' />
-}
+  if (loading) return <LoadingSpinner />;
 
-export default PrivateRoute
+  if (!user) {
+    // Not logged in → redirect to login
+    return <Navigate to="/login" state={{ from: location }} replace={true} />;
+  }
+
+  if (allowedRoles && !allowedRoles.includes(role)) {
+    // Logged in but role not allowed → redirect to unauthorized page
+    return <Navigate to="/unauthorized" replace={true} />;
+  }
+
+  return children;
+};
+
+export default PrivateRoute;

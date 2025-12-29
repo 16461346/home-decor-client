@@ -69,6 +69,7 @@ const SignUp = () => {
       });
 
       navigate(from, { replace: true });
+      navigate('/')
       toast.success("Signup Successful");
     } catch (err) {
       console.log(err);

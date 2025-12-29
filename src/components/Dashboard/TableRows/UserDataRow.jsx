@@ -7,11 +7,9 @@ const UserDataRow = ({ user }) => {
   const queryClient = useQueryClient();
 
   const handleRoleUpdated = (newRole) => {
-    // Update UI instantly
-    queryClient.setQueryData(["AllUsers"], (oldData) =>
+    queryClient.setQueryData(["AllUsers"], (oldData = []) =>
       oldData.map((u) => (u._id === user._id ? { ...u, role: newRole } : u))
     );
-    setIsEditOpen(false);
   };
 
   return (

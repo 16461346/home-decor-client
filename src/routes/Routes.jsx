@@ -22,6 +22,10 @@ import MyBooking from "../pages/Dashboard/Customer/MyBooking";
 import PaymentHistory from "../pages/Dashboard/Customer/PaymentHistory";
 import DecoratorRequest from "../pages/Dashboard/Admin/DecoratorRequest";
 import PaymentSuccess from "../pages/PlantDetails/PaymentSuccess";
+import AdminRoute from "./AdminRoute";
+import DecoratorRouter from "./DecoratorRouter";
+import AssignDecorator from "../pages/Dashboard/Admin/AssignDecorator";
+import TaskRequest from "../pages/Dashboard/Seller/TaskRequest";
 
 export const router = createBrowserRouter([
   {
@@ -43,8 +47,12 @@ export const router = createBrowserRouter([
         loader: () => fetch("/coverage.json").then((res) => res.json()),
       },
       {
-        path:'/payment-success',
-        element:<PaymentSuccess/>
+        path: "/payment-success",
+        element: (
+          <PrivateRoute>
+            <PaymentSuccess />
+          </PrivateRoute>
+        ),
       },
       {
         path: "/services",
@@ -88,7 +96,9 @@ export const router = createBrowserRouter([
         path: "add-decoration",
         element: (
           <PrivateRoute>
-            <AddPlant />
+            <AdminRoute>
+              <AddPlant />
+            </AdminRoute>
           </PrivateRoute>
         ),
       },
@@ -96,7 +106,9 @@ export const router = createBrowserRouter([
         path: "my-decoration",
         element: (
           <PrivateRoute>
-            <MyInventory />
+            <AdminRoute>
+              <MyInventory />
+            </AdminRoute>
           </PrivateRoute>
         ),
       },
@@ -104,7 +116,19 @@ export const router = createBrowserRouter([
         path: "decorate-request",
         element: (
           <PrivateRoute>
-            <DecoratorRequest/>
+            <AdminRoute>
+              <DecoratorRequest />
+            </AdminRoute>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "assign-decorator",
+        element: (
+          <PrivateRoute>
+            <AdminRoute>
+              <AssignDecorator/>
+            </AdminRoute>
           </PrivateRoute>
         ),
       },
@@ -112,7 +136,9 @@ export const router = createBrowserRouter([
         path: "manage-users",
         element: (
           <PrivateRoute>
-            <ManageUsers />
+            <AdminRoute>
+              <ManageUsers />
+            </AdminRoute>
           </PrivateRoute>
         ),
       },
@@ -144,7 +170,19 @@ export const router = createBrowserRouter([
         path: "manage-booking",
         element: (
           <PrivateRoute>
-            <ManageOrders />
+            <DecoratorRouter>
+              <ManageOrders />
+            </DecoratorRouter>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "task-request",
+        element: (
+          <PrivateRoute>
+            <DecoratorRouter>
+              <TaskRequest/>
+            </DecoratorRouter>
           </PrivateRoute>
         ),
       },
