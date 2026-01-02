@@ -7,7 +7,11 @@ import LoadingSpinner from "../../../components/Shared/LoadingSpinner";
 const ManageOrders = () => {
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
-  const { data: ManageBooking = [], isLoading } = useQuery({
+  const {
+    data: ManageBooking = [],
+    isLoading,
+    refetch,
+  } = useQuery({
     queryKey: ["manageBooking", user?.email],
     queryFn: async () => {
       const result = await axiosSecure(
@@ -16,6 +20,7 @@ const ManageOrders = () => {
       return result.data;
     },
   });
+
   console.log(ManageBooking);
 
   if (isLoading) return <LoadingSpinner />;
@@ -32,13 +37,31 @@ const ManageOrders = () => {
                       scope="col"
                       className="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal"
                     >
-                      Name
+                      Date
                     </th>
                     <th
                       scope="col"
                       className="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal"
                     >
-                      Customer
+                      Time
+                    </th>
+                    <th
+                      scope="col"
+                      className="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal"
+                    >
+                      Service
+                    </th>
+                    <th
+                      scope="col"
+                      className="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal"
+                    >
+                      Email
+                    </th>
+                    <th
+                      scope="col"
+                      className="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal"
+                    >
+                      Number
                     </th>
                     <th
                       scope="col"
@@ -50,7 +73,7 @@ const ManageOrders = () => {
                       scope="col"
                       className="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal"
                     >
-                      Quantity
+                      Pament
                     </th>
                     <th
                       scope="col"
@@ -65,17 +88,21 @@ const ManageOrders = () => {
                       Status
                     </th>
 
-                    <th
+                    {/* <th
                       scope="col"
                       className="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal"
                     >
                       Action
-                    </th>
+                    </th> */}
                   </tr>
                 </thead>
                 <tbody>
                   {ManageBooking.map((booking, i) => (
-                    <SellerOrderDataRow key={i} booking={booking} />
+                    <SellerOrderDataRow
+                      key={i}
+                      booking={booking}
+                      refetch={refetch}
+                    />
                   ))}
                 </tbody>
               </table>

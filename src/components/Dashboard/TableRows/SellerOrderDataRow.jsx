@@ -1,56 +1,86 @@
-import { useState } from 'react'
-import DeleteModal from '../../Modal/DeleteModal'
-const SellerOrderDataRow = (mbooking) => {
-  let [isOpen, setIsOpen] = useState(false)
-  const closeModal = () => setIsOpen(false)
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import Swal from "sweetalert2";
+
+const SellerOrderDataRow = ({ booking, refetch }) => {
+  const axiosSecure = useAxiosSecure();
+
+  if (!booking) return null;
+
+  const handleStatusChange = async (e) => {
+    const newStatus = e.target.value;
+
+    try {
+      const res = await axiosSecure.patch(
+        `/bookings/${booking._id}/status`,
+        { status: newStatus }
+      );
+
+      if (res.data.success) {
+        Swal.fire({
+          icon: "success",
+          title: "Status Updated",
+          text: `Order status changed to "${newStatus}"`,
+          timer: 1500,
+          showConfirmButton: false,
+        });
+        refetch && refetch();
+      }
+    } catch (err) {
+      console.error(err);
+      Swal.fire("Error", "Failed to update status", "error");
+    }
+  };
 
   return (
     <tr>
-      <td className='px-5 py-5 border-b border-gray-200 bg-white text-sm'>
-        <p className='text-gray-900 '>Money Plant</p>
-      </td>
-      <td className='px-5 py-5 border-b border-gray-200 bg-white text-sm'>
-        <p className='text-gray-900 '>abc@gmail.com</p>
-      </td>
-      <td className='px-5 py-5 border-b border-gray-200 bg-white text-sm'>
-        <p className='text-gray-900 '>$120</p>
-      </td>
-      <td className='px-5 py-5 border-b border-gray-200 bg-white text-sm'>
-        <p className='text-gray-900 '>5</p>
-      </td>
-      <td className='px-5 py-5 border-b border-gray-200 bg-white text-sm'>
-        <p className='text-gray-900 '>Dhaka</p>
-      </td>
-      <td className='px-5 py-5 border-b border-gray-200 bg-white text-sm'>
-        <p className='text-gray-900 '>Pending</p>
+      <td className="px-5 py-5 border-b bg-white text-sm">
+        {booking.bookingDate}
       </td>
 
-      <td className='px-5 py-5 border-b border-gray-200 bg-white text-sm'>
-        <div className='flex items-center gap-2'>
-          <select
-            required
-            className='p-1 border-2 border-lime-300 focus:outline-lime-500 rounded-md text-gray-900  bg-white'
-            name='category'
-          >
-            <option value='Pending'>Pending</option>
-            <option value='In Progress'>Start Processing</option>
-            <option value='Delivered'>Deliver</option>
-          </select>
-          <button
-            onClick={() => setIsOpen(true)}
-            className='relative disabled:cursor-not-allowed cursor-pointer inline-block px-3 py-1 font-semibold text-green-900 leading-tight'
-          >
-            <span
-              aria-hidden='true'
-              className='absolute inset-0 bg-red-200 opacity-50 rounded-full'
-            ></span>
-            <span className='relative'>Cancel</span>
-          </button>
-        </div>
-        <DeleteModal isOpen={isOpen} closeModal={closeModal} />
+      <td className="px-5 py-5 border-b bg-white text-sm">
+        {booking.startTime} - {booking.endTime}
+      </td>
+
+      <td className="px-5 py-5 border-b bg-white text-sm">
+        {booking.name}
+      </td>
+
+      <td className="px-5 py-5 border-b bg-white text-sm">
+        {booking.customer}
+      </td>
+
+      <td className="px-5 py-5 border-b bg-white text-sm">
+        {booking.phone}
+      </td>
+
+      <td className="px-5 py-5 border-b bg-white text-sm">
+        ${booking.price}
+      </td>
+
+      <td className="px-5 py-5 border-b bg-white text-sm">
+        {booking.transactionId ? "Paid" : "Unpaid"}
+      </td>
+
+      <td className="px-5 py-5 border-b bg-white text-sm">
+        {booking.division}/{booking.district}
+      </td>
+
+      <td className="px-5 py-5 border-b bg-white text-sm">
+        <select
+          value={booking.status}
+          onChange={handleStatusChange}
+          className="p-1 border-2 border-lime-300 focus:outline-lime-500 rounded-md"
+        >
+          <option value="Decorator-assigned">Decorator Assigned</option>
+          <option value="Planning Phase">Planning Phase</option>
+          <option value="Materials Prepared">Materials Prepared</option>
+          <option value="On the Way to Venue">On the Way to Venue</option>
+          <option value="Setup in Progress">Setup in Progress</option>
+          <option value="Completed">Completed</option>
+        </select>
       </td>
     </tr>
-  )
-}
+  );
+};
 
-export default SellerOrderDataRow
+export default SellerOrderDataRow;

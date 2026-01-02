@@ -25,7 +25,7 @@ import PaymentSuccess from "../pages/PlantDetails/PaymentSuccess";
 import AdminRoute from "./AdminRoute";
 import DecoratorRouter from "./DecoratorRouter";
 import AssignDecorator from "../pages/Dashboard/Admin/AssignDecorator";
-import TaskRequest from "../pages/Dashboard/Seller/TaskRequest";
+// import TaskRequest from "../pages/Dashboard/Seller/TaskRequest";
 
 export const router = createBrowserRouter([
   {
@@ -176,16 +176,16 @@ export const router = createBrowserRouter([
           </PrivateRoute>
         ),
       },
-      {
-        path: "task-request",
-        element: (
-          <PrivateRoute>
-            <DecoratorRouter>
-              <TaskRequest/>
-            </DecoratorRouter>
-          </PrivateRoute>
-        ),
-      },
+      // {
+      //   path: "task-request",
+      //   element: (
+      //     <PrivateRoute>
+      //       <DecoratorRouter>
+      //         <TaskRequest/>
+      //       </DecoratorRouter>
+      //     </PrivateRoute>
+      //   ),
+      // },
     ],
   },
 ]);

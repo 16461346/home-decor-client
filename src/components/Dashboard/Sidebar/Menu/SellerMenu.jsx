@@ -10,11 +10,11 @@ const SellerMenu = () => {
         label='Manage Booking'
         address='manage-booking'
       />
-      <MenuItem
+      {/* <MenuItem
         icon={MdTaskAlt}
         label='Task Request'
         address='task-request'
-      />
+      /> */}
     </>
   )
 }

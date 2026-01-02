@@ -1,16 +1,9 @@
 import Swal from "sweetalert2";
-import axios from "axios";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
 const DecoratorRequestRow = ({ request, refetch }) => {
-  const {
-    _id,
-    name,
-    email,
-    phone,
-    division,
-    district,
-    status,
-  } = request;
+  const { _id, name, email, phone, division, district, status } = request;
+  const axiosSecure = useAxiosSecure();
 
   const handleApprove = async () => {
     const confirm = await Swal.fire({
@@ -23,7 +16,7 @@ const DecoratorRequestRow = ({ request, refetch }) => {
 
     if (!confirm.isConfirmed) return;
 
-    await axios.patch(
+    await axiosSecure.patch(
       `${import.meta.env.VITE_API_URL}/decorator-requests/approve/${_id}`
     );
 
@@ -42,12 +35,26 @@ const DecoratorRequestRow = ({ request, refetch }) => {
 
     if (!confirm.isConfirmed) return;
 
-    await axios.patch(
-      `${import.meta.env.VITE_API_URL}/decorator-requests/reject/${_id}`
-    );
+    try {
+      // JWT token পাঠানো হচ্ছে Authorization header এ
+      const res = await axiosSecure.patch(
+        `${import.meta.env.VITE_API_URL}/decorator-requests/reject/${_id}`,
+        {}, // PATCH body খালি, শুধু token লাগবে
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+            // এখানে তোমার JWT token থাকতে হবে
+          },
+        }
+      );
 
-    Swal.fire("Rejected!", "Request has been rejected.", "info");
-    refetch();
+      console.log("Reject Response:", res.data); // ✅ Debugging
+      Swal.fire("Rejected!", "Request has been rejected.", "info");
+      refetch(); // data update
+    } catch (err) {
+      console.error("Reject Error:", err.response?.data || err);
+      Swal.fire("Error!", "Failed to reject request.", "error");
+    }
   };
 
   return (
@@ -86,9 +93,7 @@ const DecoratorRequestRow = ({ request, refetch }) => {
         ) : (
           <span
             className={`px-3 py-1 rounded text-white text-sm ${
-              status === "approved"
-                ? "bg-green-600"
-                : "bg-red-600"
+              status === "approved" ? "bg-green-600" : "bg-red-600"
             }`}
           >
             {status}
